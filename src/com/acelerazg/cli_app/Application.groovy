@@ -15,8 +15,6 @@ while (true) {
             break
         case "add": // must add a new user
             break
-        case "update": // choose an user to update
-            break
         case "like": // choose an user to like another
             break
         case "check": // check an user's likes and matches
