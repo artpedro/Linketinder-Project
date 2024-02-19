@@ -1,8 +1,7 @@
 package com.acelerazg.users
 
 trait User {
-    String name, desc, email, country
-    int CEP, CPF_CNPJ
+    String name, desc, email, country, CEP, CPF_CNPJ
 
     Set skills = []
     def likes = []

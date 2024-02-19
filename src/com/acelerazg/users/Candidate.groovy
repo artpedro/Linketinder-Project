@@ -1,10 +1,9 @@
 package com.acelerazg.users
 
-@groovy.transform.ToString
 class Candidate implements User{
     int age
 
-    Candidate(String name,desc,email,country,int CEP, CPF_CNPJ, age) {
+    Candidate(String name,desc,email,country, CEP, CPF_CNPJ, age) {
         this.name = name
         this.desc = desc
         this.email = email
@@ -13,6 +12,7 @@ class Candidate implements User{
         this.CPF_CNPJ = CPF_CNPJ
         this.age = age
     }
+
     Candidate(Map map) {
         this.name = map['name']
         this.desc = map['desc']
@@ -23,4 +23,14 @@ class Candidate implements User{
         this.age = map['age']
     }
 
+    @Override
+    String toString() {
+        "Candidate name: ${this.name}\n" +
+        "Description: ${this.desc}\n" +
+        "Info:" +
+        "\n\tAge: ${this.age}" +
+        "\n\tEmail: ${this.email}" +
+        "\n\tCNPJ: ${this.CPF_CNPJ}" +
+        "\n\tCountry: ${this.country}    CEP: ${this.CEP}\n"
+    }
 }

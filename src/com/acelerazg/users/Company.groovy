@@ -1,9 +1,8 @@
 package com.acelerazg.users
 
-@groovy.transform.ToString
 class Company implements User{
 
-    Company(String name,desc,email,country, int CEP, CPF_CNPJ) {
+    Company(String name,desc,email,country,CEP,CPF_CNPJ) {
         this.name = name
         this.desc = desc
         this.email = email
@@ -18,5 +17,15 @@ class Company implements User{
         this.country = map['country']
         this.CEP = map['CEP']
         this.CPF_CNPJ = map['CPF_CNPJ']
+    }
+
+    @Override
+    String toString() {
+        "Company name: ${this.name}\n" +
+        "Description: ${this.desc}\n" +
+        "Info:" +
+        "\n\tEmail: ${this.email}" +
+        "\n\tCNPJ: ${this.CPF_CNPJ}" +
+        "\n\tCountry: ${this.country}    CEP: ${this.CEP}\n"
     }
 }
