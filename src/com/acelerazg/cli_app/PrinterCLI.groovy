@@ -7,7 +7,6 @@ class PrinterCLI {
     def static askCommand() {
         println "Waiting for command to execute: "+
                 TextColors.ANSI_GREEN_BACKGROUND + TextColors.ANSI_BLACK + "[New]" + TextColors.ANSI_RESET + " " +
-                TextColors.ANSI_BLUE_BACKGROUND + TextColors.ANSI_BLACK + "[Check]" + TextColors.ANSI_RESET + " " +
                 TextColors.ANSI_YELLOW_BACKGROUND + TextColors.ANSI_BLACK + "[View]" + TextColors.ANSI_RESET + " " +
                 TextColors.ANSI_RED_BACKGROUND + TextColors.ANSI_BLACK + "[Like]" + TextColors.ANSI_RESET + " " +
                 TextColors.ANSI_BLACK_BACKGROUND + TextColors.ANSI_WHITE + "[Close]" + TextColors.ANSI_RESET
