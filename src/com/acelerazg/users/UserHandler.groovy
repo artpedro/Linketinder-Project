@@ -21,16 +21,25 @@ class UserHandler {
         users
     }
     def buildUser(boolean candidate = false) {
-        def new_user = [:]
+        def new_user = ["skills":[],"likes":[]]
 
         def fields = ["name", "desc", "email", "country", "CEP", "CPF_CNPJ"]
         if (candidate) fields.add("age")
 
         fields.forEach { field ->
-            println "Insert ${field}:\n> "
+            println "Insert ${field}:"
             new_user[field] = getCommand()
         }
         if (candidate) new_user["age"] = new_user["age"].toInteger()
+        while (true) {
+            println "Want to insert a new skill? [y] [n]"
+            String answer = getCommand()
+            if (answer != "yes" && answer != "y") break
+            if (candidate) println "Insert a skill: "
+            else println "Insert a desired skill"
+            new_user["skills"] << getCommand()
+        }
+        println "Creating user"
         new_user
     }
 }
