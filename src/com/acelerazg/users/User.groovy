@@ -5,6 +5,7 @@ trait User {
 
     Set skills = []
     def likes = []
+    def matches = []
 
     default void like(User liked) {
         if (this.name in likes) println "This like already occurred"

@@ -31,6 +31,7 @@ class UserHandler {
             return users
         }
 
+        def match = false
         users.each { category, category_users ->
             category_users.forEach { user ->
                 if (user.name == liker) {
@@ -38,6 +39,22 @@ class UserHandler {
                     else {
                         user.likes << liked
                         println("$liker liked $liked")
+                    }
+                }
+                if (user.name == liked) {
+                    if (liker in user.likes) {
+                        user.matches << liker
+                        match = true
+                    }
+                }
+            }
+        }
+        if (match) {
+            println "A match between $liker and $liked occurred"
+            users.each {category, category_users ->
+                category_users.forEach { user ->
+                    if (user.name == liker){
+                        user.matches << liked
                     }
                 }
             }
