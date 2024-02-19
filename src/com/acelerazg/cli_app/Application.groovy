@@ -1,7 +1,6 @@
 package com.acelerazg.cli_app
 
 import com.acelerazg.file_manager.UsersFileManager
-// import com.acelerazg.users.MatchChecker
 import com.acelerazg.users.UserHandler
 
 UsersFileManager fileManager = new UsersFileManager()
@@ -24,11 +23,8 @@ while (true) {
             fileManager.writeLog(all_users)
             break
         case "like": // choose an user to like another
-        //    userHandler.liking()
-            break
-        case "check": // check an user's likes and matches
-        //    MatchChecker matchChecker = new MatchChecker()
-        //    matchChecker.checkMatch()
+            userHandler.liking(all_users)
+            fileManager.writeLog(all_users)
             break
         default: println "Invalid command"
     }
