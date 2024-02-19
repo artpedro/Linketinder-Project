@@ -18,6 +18,7 @@ class PrinterCLI {
         users["company"].forEach {
             if (it) println it
         }
+        printBar()
         println "All candidates: \n"
         users["candidate"].forEach {
             if (it) println it
@@ -41,5 +42,9 @@ class PrinterCLI {
     def static printEnd() {
         println "Terminating Application..."
 
+    }
+
+    public static void printBar() {
+        System.out.println("___________________________________________________________________________________________\n");
     }
 }

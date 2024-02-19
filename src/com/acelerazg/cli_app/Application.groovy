@@ -11,6 +11,7 @@ def all_users = fileManager.readLog()
 
 PrinterCLI.printMenu()
 while (true) {
+    PrinterCLI.printBar()
     PrinterCLI.askCommand()
     command = InputCLI.getCommand()
     if (command == "close") break
