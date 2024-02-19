@@ -21,6 +21,8 @@ class Candidate implements User{
         this.CEP = map['CEP']
         this.CPF_CNPJ = map['CPF_CNPJ']
         this.age = map['age']
+        this.skills = map['skills']
+        this.likes = map['likes']
     }
 
     @Override
@@ -31,6 +33,7 @@ class Candidate implements User{
         "\n\tAge: ${this.age}" +
         "\n\tEmail: ${this.email}" +
         "\n\tCNPJ: ${this.CPF_CNPJ}" +
-        "\n\tCountry: ${this.country}    CEP: ${this.CEP}\n"
+        "\n\tCountry: ${this.country}    CEP: ${this.CEP}" +
+        "\n\tSkills: ${this.skills}\n"
     }
 }

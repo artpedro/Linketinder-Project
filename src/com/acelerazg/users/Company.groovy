@@ -2,13 +2,14 @@ package com.acelerazg.users
 
 class Company implements User{
 
-    Company(String name,desc,email,country,CEP,CPF_CNPJ) {
+    Company(String name,desc,email,country,CEP,CPF_CNPJ, List skills) {
         this.name = name
         this.desc = desc
         this.email = email
         this.country = country
         this.CEP = CEP
         this.CPF_CNPJ = CPF_CNPJ
+        this.skills = skills
     }
     Company(Map map) {
         this.name = map['name']
@@ -17,6 +18,8 @@ class Company implements User{
         this.country = map['country']
         this.CEP = map['CEP']
         this.CPF_CNPJ = map['CPF_CNPJ']
+        this.skills = map['skills']
+        this.likes = map['likes']
     }
 
     @Override
@@ -26,6 +29,7 @@ class Company implements User{
         "Info:" +
         "\n\tEmail: ${this.email}" +
         "\n\tCNPJ: ${this.CPF_CNPJ}" +
-        "\n\tCountry: ${this.country}    CEP: ${this.CEP}\n"
+        "\n\tCountry: ${this.country}    CEP: ${this.CEP}" +
+        "\n\tRequired_skills: ${this.skills}\n"
     }
 }
