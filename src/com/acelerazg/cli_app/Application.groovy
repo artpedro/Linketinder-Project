@@ -2,10 +2,10 @@ package com.acelerazg.cli_app
 
 import com.acelerazg.file_manager.UsersFileManager
 // import com.acelerazg.users.MatchChecker
-// import com.acelerazg.users.UserHandler
+import com.acelerazg.users.UserHandler
 
 UsersFileManager fileManager = new UsersFileManager()
-// UserHandler userHandler = new UserHandler()
+UserHandler userHandler = new UserHandler()
 
 def all_users = fileManager.readLog()
 
@@ -19,7 +19,8 @@ while (true) {
             PrinterCLI.viewUsers(all_users)
             break
         case "new": // must add a new user
-        //    userHandler.newUser(all_users)
+            all_users = userHandler.newUser(all_users)
+            fileManager.writeLog(all_users)
             break
         case "like": // choose an user to like another
         //    userHandler.liking()
