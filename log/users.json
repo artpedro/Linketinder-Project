@@ -1,111 +1,171 @@
 {
     "company": [
         {
-            "name": "Innovative Tech Solutions",
-            "email": "contact@innovativetech.com",
             "CEP": "95010000",
             "CPF_CNPJ": "98.765.432/0001-01",
             "country": "USA",
             "desc": "Innovative solutions in the tech industry.",
-            "skills": ["Python", "Docker", "Git"],
-            "likes": []
+            "email": "contact@innovativetech.com",
+            "likes": [
+                
+            ],
+            "name": "Innovative Tech Solutions",
+            "skills": [
+                "Python",
+                "Docker",
+                "Git"
+            ]
         },
         {
-            "name": "EcoTech Energy",
-            "email": "info@ecotech.com",
             "CEP": "78005000",
             "CPF_CNPJ": "87.654.321/0002-12",
             "country": "USA",
             "desc": "Renewable energy solutions for a sustainable future.",
-            "skills": ["Java", "Spring Framework", "Git"],
-            "likes": []
+            "email": "info@ecotech.com",
+            "likes": [
+                
+            ],
+            "name": "EcoTech Energy",
+            "skills": [
+                "Java",
+                "Spring Framework",
+                "Git"
+            ]
         },
         {
-            "name": "Global Software Inc.",
-            "email": "support@globalsw.com",
             "CEP": "10020000",
             "CPF_CNPJ": "76.543.210/0003-23",
             "country": "USA",
             "desc": "Global leader in software development and innovation.",
-            "skills": ["JavaScript", "React", "TypeScript"],
-            "likes": []
+            "email": "support@globalsw.com",
+            "likes": [
+                
+            ],
+            "name": "Global Software Inc.",
+            "skills": [
+                "JavaScript",
+                "React",
+                "TypeScript"
+            ]
         },
         {
-            "name": "NextGen Developers",
-            "email": "sales@nextgendevelopers.com",
             "CEP": "80030000",
             "CPF_CNPJ": "65.432.109/0004-34",
             "country": "USA",
             "desc": "Forward-thinking development for the next generation of technology.",
-            "skills": ["Angular", "TypeScript", "Docker"],
-            "likes": []
+            "email": "sales@nextgendevelopers.com",
+            "likes": [
+                
+            ],
+            "name": "NextGen Developers",
+            "skills": [
+                "Angular",
+                "TypeScript",
+                "Docker"
+            ]
         },
         {
-            "name": "CloudScape Technologies",
-            "email": "hello@cloudscape.com",
             "CEP": "90040000",
             "CPF_CNPJ": "54.321.098/0005-45",
             "country": "USA",
             "desc": "Innovative cloud solutions for businesses worldwide.",
-            "skills": ["Docker", "Java", "Git"],
-            "likes": []
+            "email": "hello@cloudscape.com",
+            "likes": [
+                
+            ],
+            "name": "CloudScape Technologies",
+            "skills": [
+                "Docker",
+                "Java",
+                "Git"
+            ]
         }
     ],
     "candidate": [
         {
-            "name": "Jordan Miles",
-            "email": "jordan.miles@example.com",
+            "age": 28,
             "CEP": "94108000",
             "CPF_CNPJ": "210.987.654-32",
             "country": "USA",
             "desc": "Software engineer with a passion for cloud technologies and automation.",
-            "skills": ["Docker", "Python", "Git"],
-            "likes": [],
-            "age": 28
+            "email": "jordan.miles@example.com",
+            "likes": [
+                
+            ],
+            "name": "Jordan Miles",
+            "skills": [
+                "Docker",
+                "Python",
+                "Git"
+            ]
         },
         {
-            "name": "Emily Carter",
-            "email": "emily.carter@example.com",
+            "age": 32,
             "CEP": "78703000",
             "CPF_CNPJ": "321.098.765-43",
             "country": "USA",
             "desc": "Front-end developer specializing in Angular and React frameworks.",
-            "skills": ["Angular", "React", "TypeScript"],
-            "likes": [],
-            "age": 32
+            "email": "emily.carter@example.com",
+            "likes": [
+                
+            ],
+            "name": "Emily Carter",
+            "skills": [
+                "Angular",
+                "React",
+                "TypeScript"
+            ]
         },
         {
-            "name": "Liam Smith",
-            "email": "liam.smith@example.com",
+            "age": 35,
             "CEP": "10021000",
             "CPF_CNPJ": "432.109.876-54",
             "country": "USA",
             "desc": "Full stack developer with expertise in Java and Spring Framework.",
-            "skills": ["Java", "Spring Framework", "Git"],
-            "likes": [],
-            "age": 35
+            "email": "liam.smith@example.com",
+            "likes": [
+                
+            ],
+            "name": "Liam Smith",
+            "skills": [
+                "Java",
+                "Spring Framework",
+                "Git"
+            ]
         },
         {
-            "name": "Sophia Johnson",
-            "email": "sophia.johnson@example.com",
+            "age": 29,
             "CEP": "80031000",
             "CPF_CNPJ": "543.210.987-65",
             "country": "USA",
             "desc": "DevOps engineer focused on automation, cloud deployment, and containerization.",
-            "skills": ["Docker", "Groovy", "Git"],
-            "likes": [],
-            "age": 29
+            "email": "sophia.johnson@example.com",
+            "likes": [
+                
+            ],
+            "name": "Sophia Johnson",
+            "skills": [
+                "Docker",
+                "Groovy",
+                "Git"
+            ]
         },
         {
-            "name": "Ethan Brown",
-            "email": "ethan.brown@example.com",
+            "age": 31,
             "CEP": "90041000",
             "CPF_CNPJ": "654.321.098-76",
             "country": "USA",
             "desc": "Innovative data scientist with a strong foundation in Python and machine learning.",
-            "skills": ["Python", "Docker", "Git"],
-            "likes": [],
-            "age": 31
+            "email": "ethan.brown@example.com",
+            "likes": [
+                
+            ],
+            "name": "Ethan Brown",
+            "skills": [
+                "Python",
+                "Docker",
+                "Git"
+            ]
         }
     ]
 }
