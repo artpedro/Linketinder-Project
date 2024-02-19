@@ -14,10 +14,11 @@ class UserHandler {
                 users["company"] << new Company(buildUser())
                     break
             case ("candidate"):
-                users["candidate"] << new Candidate(buildUser(candidate: true))
+                users["candidate"] << new Candidate(buildUser(true))
                     break
             default: println "Invalid user"
         }
+        users
     }
     def buildUser(boolean candidate = false) {
         def new_user = [:]
@@ -29,6 +30,7 @@ class UserHandler {
             println "Insert ${field}:\n> "
             new_user[field] = getCommand()
         }
+        if (candidate) new_user["age"] = new_user["age"].toInteger()
         new_user
     }
 }
