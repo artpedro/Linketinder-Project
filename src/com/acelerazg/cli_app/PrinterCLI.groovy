@@ -1,5 +1,8 @@
 package com.acelerazg.cli_app
 
+import com.acelerazg.users.Candidate
+import com.acelerazg.users.Company
+
 class PrinterCLI {
     def static askCommand() {
         println "Waiting for command to execute: "+
@@ -8,6 +11,17 @@ class PrinterCLI {
                 TextColors.ANSI_YELLOW_BACKGROUND + TextColors.ANSI_BLACK + "[View]" + TextColors.ANSI_RESET + " " +
                 TextColors.ANSI_RED_BACKGROUND + TextColors.ANSI_BLACK + "[Like]" + TextColors.ANSI_RESET + " " +
                 TextColors.ANSI_BLACK_BACKGROUND + TextColors.ANSI_WHITE + "[Close]" + TextColors.ANSI_RESET
+    }
+
+    def static viewUsers(Map users) {
+        println "All companies: \n"
+        users["company"].forEach {
+            if (it) println it
+        }
+        println "All candidates: \n"
+        users["candidate"].forEach {
+            if (it) println it
+        }
     }
 
     def static printMenu() {
