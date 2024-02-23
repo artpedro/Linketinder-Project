@@ -1,0 +1,36 @@
+plugins {
+    id 'groovy'
+    id 'java'
+}
+
+group 'com.acelerazg'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.mockito:mockito-core:3.4.0' // Or higher
+    testImplementation 'org.mockito:mockito-inline:3.4.0' // For static mocking
+
+    // https://mvnrepository.com/artifact/org.apache.groovy/groovy
+    implementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.18'
+
+    // https://mvnrepository.com/artifact/org.apache.groovy/groovy-json
+    implementation group: 'org.apache.groovy', name: 'groovy-json', version: '4.0.18'
+
+
+    // Spock framework for testing
+    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.2-M1-groovy-4.0'
+
+
+    // JUnit Platform Engine is required to run Spock tests
+    testImplementation platform('org.junit:junit-bom:5.7.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+test {
+    useJUnitPlatform()
+}
