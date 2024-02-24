@@ -88,7 +88,7 @@ class UserHandler {
             println "Insert ${field}:"
             new_user[field] = getCommand()
         }
-        if (candidate) new_user["age"] = new_user["age"].toInteger()
+        if (candidate) new_user["age"] = Integer.parseInt(new_user["age"])
         while (true) {
             println "Want to insert a new skill? [y] [n]"
             String answer = getCommand()
