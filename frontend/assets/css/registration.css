@@ -1,0 +1,93 @@
+/* Google Fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.container{
+    height: 160vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #392467;
+    column-gap: 30px;
+}
+.form{
+    height: 80%;
+    max-width: 430px;
+    padding: 30px;
+    border-radius: 6px;
+    background: whitesmoke;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+header{
+    font-size: 28px;
+    font-weight: 600;
+    color: #5D3587;
+    text-align: center;
+}
+form {
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+.form .field{
+    display: block;
+    height: 5vh;
+    width: 100%;
+    border-radius: 6px;
+}
+.form .field label {
+    display: block;
+}
+.field input,
+.field button,
+.field textarea{
+    height: 100%;
+    width: 100%;
+    resize: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 6px;
+    padding: 0 15px;
+    border: 1px solid#CACACA;
+}
+
+.field textarea {
+    height: 10vh;
+}
+.field input{
+    outline: none;
+    padding: 0 15px;
+    border: 1px solid#CACACA;
+}
+.field input:focus{
+    border-bottom-width: 2px;
+}
+.password-input {
+    margin-top: 5vh;
+}
+.field button{
+    color: #fff;
+    background-color: #5D3587;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.field button:hover{
+    background-color: #A367B1;
+}
+
+@media screen and (max-width: 400px) {
+    .form{
+        padding: 20px 10px;
+    }
+    
+}
