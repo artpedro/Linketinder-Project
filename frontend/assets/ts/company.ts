@@ -7,8 +7,9 @@ class Company extends User {
                 cep:string,
                 cpf_cnpj:string,
                 password:string,
-                skills_str:string) {
-        super(name,desc,email,country,cep,cpf_cnpj,password,skills_str)
+                skills_str:string,
+                matches:string) {
+        super(name,desc,email,country,cep,cpf_cnpj,password,skills_str,matches)
     }
     toLogEntry():logEntry  {
         const attributesMap: Map<string,string> = new Map()

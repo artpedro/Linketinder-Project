@@ -50,7 +50,8 @@ class logHandler {
                         ['cep', '12345-678'],
                         ['cpf_cnpj', '111.222.333-44'],
                         ['password', 'candidatePassword123'],
-                        ['skills', 'TypeScript, JavaScript']
+                        ['skills_str', 'TypeScript, JavaScript'],
+                        ['matches','company@example.com']
                     ])]
                 ])],
                 ['company', new Map([
@@ -62,7 +63,8 @@ class logHandler {
                         ['cep', '98765-432'],
                         ['cpf_cnpj', '999.888.777/0001-66'],
                         ['password', 'securePassword456'],
-                        ['skills', 'Innovation, Development']
+                        ['skills_str', 'Innovation, Development'],
+                        ['matches','candidate@example.com']
                     ])]
                 ])]
             ])

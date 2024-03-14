@@ -8,8 +8,9 @@ class Candidate extends User {
                 cpf_cnpj:string,
                 age:string,
                 password:string,
-                skills_str:string) {
-        super(name,desc,email,country,cep,cpf_cnpj,password,skills_str)
+                skills_str:string,
+                matches:string) {
+        super(name,desc,email,country,cep,cpf_cnpj,password,skills_str,matches)
         this.age = age
     }
     toLogEntry():logEntry  {

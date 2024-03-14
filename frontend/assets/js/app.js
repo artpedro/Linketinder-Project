@@ -1,6 +1,9 @@
 "use strict";
+function logEntryToCandidate(log) {
+    return new Candidate(log.entry.get('name'), log.entry.get('desc'), log.entry.get('email'), log.entry.get('country'), log.entry.get('cep'), log.entry.get('cpf_cnpj'), log.entry.get('age'), log.entry.get('password'), log.entry.get('skills_str'), log.entry.get('matches'));
+}
 class User {
-    constructor(name, desc, email, country, cep, cpf_cpnj, password, skills_str) {
+    constructor(name, desc, email, country, cep, cpf_cpnj, password, skills_str, matches = '') {
         this.name = name;
         this.desc = desc;
         this.email = email;
@@ -9,12 +12,13 @@ class User {
         this.cpf_cpnj = cpf_cpnj;
         this.password = password;
         this.skills_str = skills_str;
+        this.matches = matches;
         this.skills = skills_str.split(',');
     }
 }
 class Candidate extends User {
-    constructor(name, desc, email, country, cep, cpf_cnpj, age, password, skills_str) {
-        super(name, desc, email, country, cep, cpf_cnpj, password, skills_str);
+    constructor(name, desc, email, country, cep, cpf_cnpj, age, password, skills_str, matches) {
+        super(name, desc, email, country, cep, cpf_cnpj, password, skills_str, matches);
         this.age = age;
     }
     toLogEntry() {
@@ -31,8 +35,8 @@ class Candidate extends User {
     }
 }
 class Company extends User {
-    constructor(name, desc, email, country, cep, cpf_cnpj, password, skills_str) {
-        super(name, desc, email, country, cep, cpf_cnpj, password, skills_str);
+    constructor(name, desc, email, country, cep, cpf_cnpj, password, skills_str, matches) {
+        super(name, desc, email, country, cep, cpf_cnpj, password, skills_str, matches);
     }
     toLogEntry() {
         const attributesMap = new Map();
@@ -83,7 +87,8 @@ class logHandler {
                                 ['cep', '12345-678'],
                                 ['cpf_cnpj', '111.222.333-44'],
                                 ['password', 'candidatePassword123'],
-                                ['skills', 'TypeScript, JavaScript']
+                                ['skills_str', 'TypeScript, JavaScript'],
+                                ['matches', 'company@example.com']
                             ])]
                     ])],
                 ['company', new Map([
@@ -95,7 +100,8 @@ class logHandler {
                                 ['cep', '98765-432'],
                                 ['cpf_cnpj', '999.888.777/0001-66'],
                                 ['password', 'securePassword456'],
-                                ['skills', 'Innovation, Development']
+                                ['skills_str', 'Innovation, Development'],
+                                ['matches', 'candidate@example.com']
                             ])]
                     ])]
             ]);
