@@ -32,6 +32,13 @@ header{
     color: #5D3587;
     text-align: center;
 }
+#is-candidate {
+    height: 3vh;
+    width: 3vh;
+}
+#candidate-age {
+    display: none;
+}
 form {
     height: 100%;
     display: flex;
@@ -89,5 +96,4 @@ form {
     .form{
         padding: 20px 10px;
     }
-    
 }
