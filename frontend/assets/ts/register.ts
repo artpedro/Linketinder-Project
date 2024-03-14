@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('new-user')?.addEventListener('submit', function (this: HTMLFormElement, event: Event): void {
     event.preventDefault()
     const handler: userHandler = new userHandler()
-    const formData: FormData = new FormData(this)
+    let formData: FormData = new FormData(this)
 
-    const formDataMap: Map<string, string> = new Map();
+    let formDataMap: Map<string, string> = new Map();
     for (const [key,value] of formData.entries()) {
         formDataMap.set(key,value as string)
     }

@@ -139,13 +139,22 @@ class logHandler {
 var _a;
 (_a = document.getElementById('login')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', function (event) {
     event.preventDefault();
-    const handler = new userHandler();
-    const formData = new FormData(this);
-    const formDataMap = new Map();
+    let formData = new FormData(this);
+    let formDataMap = new Map();
     for (const [key, value] of formData.entries()) {
         formDataMap.set(key, value);
     }
-    console.log(formDataMap);
+    let logins = JSON.parse(localStorage.getItem('all_login'));
+    let loginEmail = formDataMap.get('email');
+    if (loginEmail in logins) {
+        let password = logins[loginEmail];
+        if (formDataMap.get('password') === password) {
+            localStorage.setItem('current_user', loginEmail);
+        }
+        else {
+            console.log('invalid password');
+        }
+    }
 });
 var _a;
 document.addEventListener('DOMContentLoaded', () => {
@@ -165,8 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j;
     event.preventDefault();
     const handler = new userHandler();
-    const formData = new FormData(this);
-    const formDataMap = new Map();
+    let formData = new FormData(this);
+    let formDataMap = new Map();
     for (const [key, value] of formData.entries()) {
         formDataMap.set(key, value);
     }
