@@ -169,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("new company created");
         handler.add_company(name, desc, email, country, cep, cpf_cnpj, password, skills);
     }
+    window.location.href = './login.html';
 });
 class userHandler extends logHandler {
     add_company(name, desc, email, country, cep, cpf_cnpj, password, skills_str) {

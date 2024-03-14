@@ -41,4 +41,5 @@ document.getElementById('new-user')?.addEventListener('submit', function (this: 
         console.log("new company created")
         handler.add_company(name,desc,email,country,cep,cpf_cnpj,password,skills)
     }
+    window.location.href = './login.html'
 })
