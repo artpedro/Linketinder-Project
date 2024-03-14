@@ -50,12 +50,10 @@ class Company extends User {
 function mapToObject(map) {
     const out = {};
     for (const [key, value] of map) {
-        // Check if value is a Map and recursively convert it
         out[key] = value instanceof Map ? mapToObject(value) : value;
     }
     return out;
 }
-// Convert a plain object (including nested objects) back to a Map
 const objectToUsersLog = (obj) => {
     const map = new Map();
     Object.keys(obj).forEach(key => {
@@ -72,9 +70,9 @@ const objectToUsersLog = (obj) => {
 };
 class logHandler {
     constructor() {
-        const fromLocal = localStorage.getItem('all_users');
-        console.log(fromLocal);
-        if (!fromLocal) {
+        const allUsersFromLocal = localStorage.getItem('all_users');
+        const allLoginFromLocal = localStorage.getItem('all_login');
+        if (allUsersFromLocal === null && allLoginFromLocal === null) {
             this.current_log = new Map([
                 ['candidates', new Map([
                         ['candidate@example.com', new Map([
@@ -101,18 +99,25 @@ class logHandler {
                             ])]
                     ])]
             ]);
+            this.login_log = new Map([['company@example.com', 'securePassword456'], ['candidate@example.com', 'candidatePassword123']]);
+            console.log(typeof this.login_log);
             console.log(this.current_log, 'on constructor');
             this.saveLog();
         }
         else {
             console.log('on constructor but in else');
-            this.current_log = objectToUsersLog(JSON.parse(fromLocal));
+            this.login_log = new Map(Object.entries(JSON.parse(allLoginFromLocal)));
+            this.current_log = objectToUsersLog(JSON.parse(allUsersFromLocal));
+            this.saveLog();
         }
     }
-    saveLog(newLog = this.current_log) {
-        const log_to_string = JSON.stringify(mapToObject(newLog));
-        console.log(log_to_string, "log to string");
-        localStorage.setItem('all_users', log_to_string);
+    saveLog(newLog = this.current_log, loginLog = this.login_log) {
+        const logObject = mapToObject(newLog);
+        const logToString = JSON.stringify(logObject);
+        const loginObject = mapToObject(loginLog);
+        const loginToString = JSON.stringify(loginObject);
+        localStorage.setItem('all_users', logToString);
+        localStorage.setItem('all_login', loginToString);
     }
     addToLog(user) {
         const userEntry = user.toLogEntry();
@@ -125,9 +130,23 @@ class logHandler {
             this.current_log.set(logType, userLog);
         }
         userLog.set(userEntry.email, userEntry.entry);
+        let email = user.email;
+        let password = user.password;
+        this.login_log.set(email, password);
         this.saveLog(); // Persist changes
     }
 }
+var _a;
+(_a = document.getElementById('login')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const handler = new userHandler();
+    const formData = new FormData(this);
+    const formDataMap = new Map();
+    for (const [key, value] of formData.entries()) {
+        formDataMap.set(key, value);
+    }
+    console.log(formDataMap);
+});
 var _a;
 document.addEventListener('DOMContentLoaded', () => {
     const checkbox = document.getElementById('is-candidate');

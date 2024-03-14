@@ -9,13 +9,11 @@ type UsersLog = Map<UserCategory, Map<string, UserInfo>>;
 function mapToObject<T>(map: Map<string, T>): {[key: string]: T | any} {
     const out: {[key: string]: T | any} = {};
     for (const [key, value] of map) {
-        // Check if value is a Map and recursively convert it
-        out[key] = value instanceof Map ? mapToObject(value) : value;
+        out[key] = value instanceof Map ? mapToObject(value as unknown as Map<string, any>) : value;
     }
     return out;
 }
 
-// Convert a plain object (including nested objects) back to a Map
 const objectToUsersLog = (obj: any): UsersLog => {
     const map: UsersLog = new Map<UserCategory, Map<string, UserInfo>>();
 
@@ -36,13 +34,12 @@ const objectToUsersLog = (obj: any): UsersLog => {
 };
 
 class logHandler {
-    public current_log: UsersLog;
-
+    public current_log: UsersLog
+    public login_log: Map<string,string>
     constructor() {
-        const fromLocal: string | null = localStorage.getItem('all_users');
-        console.log(fromLocal);
-        
-        if (!fromLocal) {
+        const allUsersFromLocal: string | null = localStorage.getItem('all_users')
+        const allLoginFromLocal: string | null = localStorage.getItem('all_login')
+        if (allUsersFromLocal === null && allLoginFromLocal === null) {
             this.current_log = new Map([
                 ['candidates', new Map([
                     ['candidate@example.com', new Map([
@@ -68,28 +65,42 @@ class logHandler {
                         ['skills', 'Innovation, Development']
                     ])]
                 ])]
-            ]);
+            ])
+            this.login_log = new Map([['company@example.com','securePassword456'],['candidate@example.com','candidatePassword123']])
+            console.log(typeof this.login_log);
+            
             console.log(this.current_log, 'on constructor')
             this.saveLog()
         } else {
             console.log('on constructor but in else');
-            
-            this.current_log = objectToUsersLog(JSON.parse(fromLocal))
+            this.login_log = new Map<string,string>(Object.entries(JSON.parse(allLoginFromLocal as string)))
+            this.current_log = objectToUsersLog(JSON.parse(allUsersFromLocal as string))
+
+            this.saveLog()
         }
     }
 
-    saveLog(newLog: UsersLog = this.current_log): void {        
-        const log_to_string: string = JSON.stringify(mapToObject(newLog));
-        console.log(log_to_string, "log to string")
-        localStorage.setItem('all_users', log_to_string);
+    saveLog(newLog: UsersLog = this.current_log, loginLog = this.login_log): void {      
+        const logObject:Object = mapToObject(newLog)  
+
+        const logToString: string = JSON.stringify(logObject);
+
+        const loginObject: Object = mapToObject(loginLog)
+
+        const loginToString: string = JSON.stringify(loginObject)
+        
+        localStorage.setItem('all_users', logToString);
+        localStorage.setItem('all_login', loginToString)
     }
 
     addToLog(user: Candidate | Company) {
         const userEntry: logEntry = user.toLogEntry();
         const logType = user instanceof Candidate ? 'candidates' : 'company';
+
         console.log("in add to log: ",userEntry,logType);
         
         let userLog = this.current_log.get(logType);
+        
         if (!userLog) {
             console.log('inside !userlog');
             
@@ -97,6 +108,10 @@ class logHandler {
             this.current_log.set(logType, userLog);
         }
         userLog.set(userEntry.email, userEntry.entry);
+        let email:string = user.email
+        let password:string = user.password
+
+        this.login_log.set(email, password)
 
         this.saveLog(); // Persist changes
     }
