@@ -44,31 +44,67 @@ class logHandler {
                 ['candidates', new Map([
                     ['candidate@example.com', new Map([
                         ['name', 'Candidate Name'],
-                        ['cpf', '111.222.333-44'],
                         ['country', 'Exampleland'],
                         ['email', 'candidate@example.com'],
+                        ['desc', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque veniam cum dolorem asperiores accusamus sapiente corporis maiores dolores! Cupiditate aspernatur iusto, corporis dolore sed consequuntur provident hic laboriosam? Recusandae, reprehenderit.'],
                         ['cep', '12345-678'],
                         ['cpf_cnpj', '111.222.333-44'],
                         ['password', 'candidatePassword123'],
                         ['skills_str', 'TypeScript, JavaScript'],
-                        ['matches','company@example.com']
+                        ['matches','company@example.com,company2@example.com,company4@example.com']
                     ])]
                 ])],
                 ['company', new Map([
                     ['company@example.com', new Map([
                         ['name', 'Company Name'],
-                        ['cpf', '555.666.777-88'],
                         ['country', 'Corporateland'],
                         ['email', 'contact@company.example.com'],
+                        ['desc','Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque veniam cum dolorem asperiores accusamus sapiente corporis maiores dolores! Cupiditate aspernatur iusto, corporis dolore sed consequuntur provident hic laboriosam? Recusandae, reprehenderit.'],
                         ['cep', '98765-432'],
                         ['cpf_cnpj', '999.888.777/0001-66'],
                         ['password', 'securePassword456'],
                         ['skills_str', 'Innovation, Development'],
                         ['matches','candidate@example.com']
-                    ])]
+                    ])],
+                    ['company2@example.com', new Map([
+                            ['name', 'Company Name'],
+                            ['country', 'Corporateland'],
+                            ['email', 'contact@company.example.com'],
+                            ['desc','Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque veniam cum dolorem asperiores accusamus sapiente corporis maiores dolores! Cupiditate aspernatur iusto, corporis dolore sed consequuntur provident hic laboriosam? Recusandae, reprehenderit.'],
+                            ['cep', '98765-432'],
+                            ['cpf_cnpj', '999.888.777/0001-66'],
+                            ['password', 'securePassword456'],
+                            ['skills_str', 'Innovation, Development'],
+                            ['matches','candidate@example.com']
+                        ])
+                    ],
+                    ['company3@example.com', new Map([
+                        ['name', 'Company Name'],
+                        ['country', 'Corporateland'],
+                        ['email', 'contact@company.example.com'],
+                        ['cep', '98765-432'],
+                        ['desc','Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque veniam cum dolorem asperiores accusamus sapiente corporis maiores dolores! Cupiditate aspernatur iusto, corporis dolore sed consequuntur provident hic laboriosam? Recusandae, reprehenderit.'],
+                        ['cpf_cnpj', '999.888.777/0001-66'],
+                        ['password', 'securePassword456'],
+                        ['skills_str', 'Innovation, Development'],
+                        ['matches','']
+                    ])
+                   ],
+                    ['company4@example.com', new Map([
+                        ['name', 'Company Name'],
+                        ['country', 'Corporateland'],
+                        ['email', 'contact@company.example.com'],
+                        ['cep', '98765-432'],
+                        ['cpf_cnpj', '999.888.777/0001-66'],
+                        ['password', 'securePassword456'],
+                        ['desc','Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque veniam cum dolorem asperiores accusamus sapiente corporis maiores dolores! Cupiditate aspernatur iusto, corporis dolore sed consequuntur provident hic laboriosam? Recusandae, reprehenderit.'],
+                        ['skills_str', 'Innovation, Development'],
+                        ['matches','candidate@example.com']
+                    ])
+                    ]
                 ])]
             ])
-            this.login_log = new Map([['company@example.com','securePassword456'],['candidate@example.com','candidatePassword123']])
+            this.login_log = new Map([['company@example.com','securePassword456'],['company2@example.com','securePassword456'],['company3@example.com','securePassword456'],['company4@example.com','securePassword456'],['candidate@example.com','candidatePassword123']])
             console.log(typeof this.login_log);
             
             console.log(this.current_log, 'on constructor')
