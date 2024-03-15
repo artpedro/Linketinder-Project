@@ -111,12 +111,12 @@ class logHandler {
                         ['cpf_cnpj', '999.888.777/0001-66'],
                         ['password', 'securePassword456'],
                         ['skills_str', 'JavaScript, Java, Typescript'],
-                        ['matches','']
+                        ['matches','candidate@example.com']
                     ])
                    ]
                 ])]
             ])
-            this.login_log = new Map([['company@example.com','securePassword456'],['company2@example.com','securePassword456'],['company3@example.com','securePassword456'],['company4@example.com','securePassword456'],['candidate@example.com','candidatePassword123']])
+            this.login_log = new Map([['company@example.com','securePassword456'],['company2@example.com','securePassword456'],['company3@example.com','securePassword456'],['company4@example.com','securePassword456'],['company5@example.com','securePassword456'],['candidate@example.com','candidatePassword123']])
             console.log(typeof this.login_log);
             
             console.log(this.current_log, 'on constructor')

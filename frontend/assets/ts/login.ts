@@ -15,7 +15,15 @@ document.getElementById('login')?.addEventListener('submit', function (this: HTM
         let password = logins[loginEmail]
         if (formDataMap.get('password') === password) {
             localStorage.setItem('current_user',loginEmail)
+            const allUsers: UsersLog = objectToUsersLog(JSON.parse(localStorage.getItem('all_users') as string))
+            let allCompanies:string[] = Array.from(allUsers.get('company')?.keys() ?? [''])
+            console.log(loginEmail)
+            console.log(allCompanies)
+            if (allCompanies.includes(loginEmail)) {
+                window.location.href = './company.html'
+            } else {
             window.location.href = './candidate.html'
+            }
         } else {
             console.log('invalid password')
         }
