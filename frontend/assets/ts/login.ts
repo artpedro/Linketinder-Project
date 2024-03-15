@@ -15,6 +15,7 @@ document.getElementById('login')?.addEventListener('submit', function (this: HTM
         let password = logins[loginEmail]
         if (formDataMap.get('password') === password) {
             localStorage.setItem('current_user',loginEmail)
+            window.location.href = './candidate.html'
         } else {
             console.log('invalid password')
         }
