@@ -19,7 +19,7 @@ abstract class User {
                 public email:string,
                 public country:string,
                 public cep:string,
-                public cpf_cpnj:string,
+                public cpf_cnpj:string,
                 public password:string,
                 public skills_str:string,
                 public matches:string = '') {
