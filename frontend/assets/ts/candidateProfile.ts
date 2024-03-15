@@ -40,11 +40,22 @@ document.addEventListener('DOMContentLoaded', function () {
     let userMatches: string[] = currentUser?.get('matches')?.split(',') as string[]
     userMatches.forEach((match)=>{
         let currentMatch = allUsers.get('company')?.get(match)
+
+        let skillsRequeried:string[] = currentMatch?.get('skills_str')?.split(',').map(skill=>skill.trim().toLowerCase()) ?? ['']
+        let maximumScore:number = skillsRequeried?.length
+        let score: number = 100
+        if (!(maximumScore === 0)) {
+            let userSkills: string[] = currentUser?.get('skills_str')?.split(",").map(skills=>skills.trim().toLowerCase()) ?? ['']
+        
+            let overlapSkills: number = skillsRequeried?.filter(item=> userSkills?.includes(item)).length 
+            score = ((overlapSkills / maximumScore) * 100)
+        }
         jobList.innerHTML += "<div class='card job w-100'>" +
         "<div class='card-body'>" +
           `<h5 class='card-title'>${currentMatch?.get('name')}</h5>` +
           `<p class='card-text'>${currentMatch?.get('desc')}</p>` +
-          `<p class='card-text'>Required skills: ${currentMatch?.get('skills_str')}</p>` +
+          `<p class='card-text'>Required skills: ${currentMatch?.get('skills_str')} </p>`+
+          `<p class='card-text'> Your affinity score: ${score.toFixed(2)}% </p>` +
           "<a href='#' class='btn'>View job</a>" +
         "</div>" +
       "</div>"

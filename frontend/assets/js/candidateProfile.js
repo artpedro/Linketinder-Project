@@ -34,13 +34,22 @@ document.addEventListener('DOMContentLoaded', function () {
     const jobList = document.getElementById('job-list');
     let userMatches = (_e = currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('matches')) === null || _e === void 0 ? void 0 : _e.split(',');
     userMatches.forEach((match) => {
-        var _a;
+        var _a, _b, _c, _d, _e;
         let currentMatch = (_a = allUsers.get('company')) === null || _a === void 0 ? void 0 : _a.get(match);
+        let skillsRequeried = (_c = (_b = currentMatch === null || currentMatch === void 0 ? void 0 : currentMatch.get('skills_str')) === null || _b === void 0 ? void 0 : _b.split(',').map(skill => skill.trim().toLowerCase())) !== null && _c !== void 0 ? _c : [''];
+        let maximumScore = skillsRequeried === null || skillsRequeried === void 0 ? void 0 : skillsRequeried.length;
+        let score = 100;
+        if (!(maximumScore === 0)) {
+            let userSkills = (_e = (_d = currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('skills_str')) === null || _d === void 0 ? void 0 : _d.split(",").map(skills => skills.trim().toLowerCase())) !== null && _e !== void 0 ? _e : [''];
+            let overlapSkills = skillsRequeried === null || skillsRequeried === void 0 ? void 0 : skillsRequeried.filter(item => userSkills === null || userSkills === void 0 ? void 0 : userSkills.includes(item)).length;
+            score = ((overlapSkills / maximumScore) * 100);
+        }
         jobList.innerHTML += "<div class='card job w-100'>" +
             "<div class='card-body'>" +
             `<h5 class='card-title'>${currentMatch === null || currentMatch === void 0 ? void 0 : currentMatch.get('name')}</h5>` +
             `<p class='card-text'>${currentMatch === null || currentMatch === void 0 ? void 0 : currentMatch.get('desc')}</p>` +
-            `<p class='card-text'>Required skills: ${currentMatch === null || currentMatch === void 0 ? void 0 : currentMatch.get('skills_str')}</p>` +
+            `<p class='card-text'>Required skills: ${currentMatch === null || currentMatch === void 0 ? void 0 : currentMatch.get('skills_str')} </p>` +
+            `<p class='card-text'> Your affinity score: ${score.toFixed(2)}% </p>` +
             "<a href='#' class='btn'>View job</a>" +
             "</div>" +
             "</div>";

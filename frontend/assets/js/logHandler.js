@@ -36,12 +36,12 @@ class logHandler {
                                 ['cpf_cnpj', '111.222.333-44'],
                                 ['password', 'candidatePassword123'],
                                 ['skills_str', 'TypeScript, JavaScript'],
-                                ['matches', 'company@example.com,company2@example.com,company4@example.com']
+                                ['matches', 'company@example.com,company2@example.com,company4@example.com,company5@example.com']
                             ])]
                     ])],
                 ['company', new Map([
                         ['company@example.com', new Map([
-                                ['name', 'Company Name'],
+                                ['name', 'Company Name1'],
                                 ['country', 'Corporateland'],
                                 ['email', 'contact@company.example.com'],
                                 ['desc', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque veniam cum dolorem asperiores accusamus sapiente corporis maiores dolores! Cupiditate aspernatur iusto, corporis dolore sed consequuntur provident hic laboriosam? Recusandae, reprehenderit.'],
@@ -52,7 +52,7 @@ class logHandler {
                                 ['matches', 'candidate@example.com']
                             ])],
                         ['company2@example.com', new Map([
-                                ['name', 'Company Name'],
+                                ['name', 'Company Name2'],
                                 ['country', 'Corporateland'],
                                 ['email', 'contact@company.example.com'],
                                 ['desc', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque veniam cum dolorem asperiores accusamus sapiente corporis maiores dolores! Cupiditate aspernatur iusto, corporis dolore sed consequuntur provident hic laboriosam? Recusandae, reprehenderit.'],
@@ -64,7 +64,7 @@ class logHandler {
                             ])
                         ],
                         ['company3@example.com', new Map([
-                                ['name', 'Company Name'],
+                                ['name', 'Company Name3'],
                                 ['country', 'Corporateland'],
                                 ['email', 'contact@company.example.com'],
                                 ['cep', '98765-432'],
@@ -76,7 +76,7 @@ class logHandler {
                             ])
                         ],
                         ['company4@example.com', new Map([
-                                ['name', 'Company Name'],
+                                ['name', 'Company Name4'],
                                 ['country', 'Corporateland'],
                                 ['email', 'contact@company.example.com'],
                                 ['cep', '98765-432'],
@@ -85,6 +85,18 @@ class logHandler {
                                 ['desc', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque veniam cum dolorem asperiores accusamus sapiente corporis maiores dolores! Cupiditate aspernatur iusto, corporis dolore sed consequuntur provident hic laboriosam? Recusandae, reprehenderit.'],
                                 ['skills_str', 'Innovation, Development'],
                                 ['matches', 'candidate@example.com']
+                            ])
+                        ],
+                        ['company5@example.com', new Map([
+                                ['name', 'Company Name5'],
+                                ['country', 'Corporateland'],
+                                ['email', 'contact@company.example.com'],
+                                ['cep', '98765-432'],
+                                ['desc', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque veniam cum dolorem asperiores accusamus sapiente corporis maiores dolores! Cupiditate aspernatur iusto, corporis dolore sed consequuntur provident hic laboriosam? Recusandae, reprehenderit.'],
+                                ['cpf_cnpj', '999.888.777/0001-66'],
+                                ['password', 'securePassword456'],
+                                ['skills_str', 'JavaScript, Java, Typescript'],
+                                ['matches', '']
                             ])
                         ]
                     ])]
