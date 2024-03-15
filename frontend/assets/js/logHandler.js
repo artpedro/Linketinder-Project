@@ -37,6 +37,17 @@ class logHandler {
                                 ['password', 'candidatePassword123'],
                                 ['skills_str', 'TypeScript, JavaScript'],
                                 ['matches', 'company@example.com,company2@example.com,company4@example.com,company5@example.com']
+                            ])],
+                        ['candidate2@example.com', new Map([
+                                ['name', 'Candidate2 Name'],
+                                ['country', 'Exampleland'],
+                                ['email', 'candidate2@example.com'],
+                                ['desc', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque veniam cum dolorem asperiores accusamus sapiente corporis maiores dolores! Cupiditate aspernatur iusto, corporis dolore sed consequuntur provident hic laboriosam? Recusandae, reprehenderit.'],
+                                ['cep', '12345-678'],
+                                ['cpf_cnpj', '111.222.333-44'],
+                                ['password', 'candidatePassword123'],
+                                ['skills_str', 'Javascript, Python'],
+                                ['matches', 'company@example.com,company2@example.com,company4@example.com,company5@example.com']
                             ])]
                     ])],
                 ['company', new Map([
@@ -49,7 +60,7 @@ class logHandler {
                                 ['cpf_cnpj', '999.888.777/0001-66'],
                                 ['password', 'securePassword456'],
                                 ['skills_str', 'Innovation, Development'],
-                                ['matches', 'candidate@example.com']
+                                ['matches', 'candidate@example.com,candidate2@example.com']
                             ])],
                         ['company2@example.com', new Map([
                                 ['name', 'Company Name2'],
@@ -60,7 +71,7 @@ class logHandler {
                                 ['cpf_cnpj', '999.888.777/0001-66'],
                                 ['password', 'securePassword456'],
                                 ['skills_str', 'Innovation, Development'],
-                                ['matches', 'candidate@example.com']
+                                ['matches', 'candidate@example.com,candidate2@example.com']
                             ])
                         ],
                         ['company3@example.com', new Map([
@@ -84,7 +95,7 @@ class logHandler {
                                 ['password', 'securePassword456'],
                                 ['desc', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque veniam cum dolorem asperiores accusamus sapiente corporis maiores dolores! Cupiditate aspernatur iusto, corporis dolore sed consequuntur provident hic laboriosam? Recusandae, reprehenderit.'],
                                 ['skills_str', 'Innovation, Development'],
-                                ['matches', 'candidate@example.com']
+                                ['matches', 'candidate@example.com,candidate2@example.com']
                             ])
                         ],
                         ['company5@example.com', new Map([
@@ -96,7 +107,7 @@ class logHandler {
                                 ['cpf_cnpj', '999.888.777/0001-66'],
                                 ['password', 'securePassword456'],
                                 ['skills_str', 'JavaScript, Java, Typescript'],
-                                ['matches', 'candidate@example.com']
+                                ['matches', 'candidate@example.com,candidate2@example.com']
                             ])
                         ]
                     ])]

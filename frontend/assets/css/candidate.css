@@ -62,3 +62,8 @@ body{
 .info {
     color:black !important;
 }
+
+#skill-graph {
+    background-color: #392467;
+    margin-bottom: 10vh;
+}

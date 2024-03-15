@@ -1,6 +1,6 @@
 "use strict";
 document.addEventListener('DOMContentLoaded', function () {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
     const handler = new userHandler();
     const userEmail = localStorage.getItem('current_user');
     const allUsers = objectToUsersLog(JSON.parse(localStorage.getItem('all_users')));
@@ -32,14 +32,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const candidateList = document.getElementById('job-list');
     let userMatches = (_e = currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('matches')) === null || _e === void 0 ? void 0 : _e.split(',');
     let count = 1;
+    let skillsRequeried = (_g = (_f = currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('skills_str')) === null || _f === void 0 ? void 0 : _f.split(",").map(skills => skills.trim().toLowerCase())) !== null && _g !== void 0 ? _g : [''];
+    let maximumScore = skillsRequeried === null || skillsRequeried === void 0 ? void 0 : skillsRequeried.length;
+    let countMatchesSkills = new Map();
     userMatches.forEach((match) => {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c;
         let currentMatch = (_a = allUsers.get('candidates')) === null || _a === void 0 ? void 0 : _a.get(match);
-        let skillsRequeried = (_c = (_b = currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('skills_str')) === null || _b === void 0 ? void 0 : _b.split(",").map(skills => skills.trim().toLowerCase())) !== null && _c !== void 0 ? _c : [''];
-        let maximumScore = skillsRequeried === null || skillsRequeried === void 0 ? void 0 : skillsRequeried.length;
         let score = 100;
         if (!(maximumScore === 0)) {
-            let userSkills = (_e = (_d = currentMatch === null || currentMatch === void 0 ? void 0 : currentMatch.get('skills_str')) === null || _d === void 0 ? void 0 : _d.split(",").map(skills => skills.trim().toLowerCase())) !== null && _e !== void 0 ? _e : [''];
+            let userSkills = (_c = (_b = currentMatch === null || currentMatch === void 0 ? void 0 : currentMatch.get('skills_str')) === null || _b === void 0 ? void 0 : _b.split(",").map(skills => skills.trim().toLowerCase())) !== null && _c !== void 0 ? _c : [''];
+            userSkills.forEach((skill) => {
+                if (countMatchesSkills.has(skill)) {
+                    countMatchesSkills.set(skill, countMatchesSkills.get(skill) + 1);
+                }
+                else {
+                    countMatchesSkills.set(skill, 1);
+                }
+            });
             let overlapSkills = skillsRequeried === null || skillsRequeried === void 0 ? void 0 : skillsRequeried.filter(item => userSkills === null || userSkills === void 0 ? void 0 : userSkills.includes(item)).length;
             score = ((overlapSkills / maximumScore) * 100);
         }
@@ -49,9 +58,53 @@ document.addEventListener('DOMContentLoaded', function () {
             `<p class='card-text'>${currentMatch === null || currentMatch === void 0 ? void 0 : currentMatch.get('desc')}</p>` +
             `<p class='card-text'>Candidate Skills: ${currentMatch === null || currentMatch === void 0 ? void 0 : currentMatch.get('skills_str')} </p>` +
             `<p class='card-text'> Affinity score: ${score.toFixed(2)}% </p>` +
-            "<a href='#' class='btn'>View candidate</a>" +
+            "<a href='#' class='btn'>View </a>" +
             "</div>" +
             "</div>";
         count++;
     });
+    // Extract the labels (programming languages) and data (counts) from the Map
+    const labels = Array.from(countMatchesSkills.keys());
+    const data = Array.from(countMatchesSkills.values());
+    // Configuration for the Chart.js histogram
+    const config = {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                    label: 'Candidate Skills Count',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: "white"
+                    }
+                }
+            }
+        }
+    };
+    // Render the chart
+    const ctx = (_h = document.getElementById('skill-graph').getContext('2d')) !== null && _h !== void 0 ? _h : '';
+    // @ts-ignore
+    new Chart(ctx, config);
 });
