@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let emailField:HTMLElement = document.getElementById('email') as HTMLElement
     let bioField:HTMLElement = document.getElementById('desc') as HTMLElement
     let cpfField:HTMLElement = document.getElementById('cpf-cnpj') as HTMLElement
+    let cepField:HTMLElement = document.getElementById('cep') as HTMLElement
+    let countryField:HTMLElement = document.getElementById('country') as HTMLElement
     let skillsField:HTMLElement = document.getElementById('skills') as HTMLElement
     let firstNameField:HTMLElement = document.getElementById('first-name') as HTMLElement
 
@@ -22,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
     bioField.innerHTML= currentUser?.get('desc') as string
     cpfField.innerHTML= 'CNPJ: ' + currentUser?.get('cpf_cnpj') as string
     skillsField.innerHTML= 'Skills: ' + currentUser?.get('skills_str') as string
+    cepField.innerHTML= 'CEP: ' + currentUser?.get('cep') as string
+    countryField.innerHTML= 'Country: ' + currentUser?.get('country') as string
     firstNameField.innerHTML= nameField.innerHTML.split(' ')[0]
 
     document.getElementById('delete-acc')?.addEventListener('click',()=>{
@@ -70,17 +74,26 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     // Extract the labels (programming languages) and data (counts) from the Map
-const labels = Array.from(countMatchesSkills.keys())
-const data = Array.from(countMatchesSkills.values())
+const labels:string[] = Array.from(countMatchesSkills.keys())
+const data:number[] = Array.from(countMatchesSkills.values())
 
-// Configuration for the Chart.js histogram
+const combined = labels.map((label, index) => ({
+    label,
+    value: data[index]
+  }))
+combined.sort((a, b) => a.value - b.value)
+const sortedLabels = combined.map(item => item.label);
+const sortedData = combined.map(item => item.value);
+console.log(sortedLabels)
+console.log(sortedData)
+
 const config = {
     type: 'bar',
     data: {
-        labels: labels,
+        labels: sortedLabels,
         datasets: [{
             label: 'Candidate Skills Count',
-            data: data,
+            data: sortedData,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -101,7 +114,7 @@ const config = {
                 ticks: {
                     color: 'white'
                 }
-            }
+            },
             x: {
                 ticks:{
                     color: "white"

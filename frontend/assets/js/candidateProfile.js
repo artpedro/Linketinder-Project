@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let bioField = document.getElementById('desc');
     let cpfField = document.getElementById('cpf-cnpj');
     let ageField = document.getElementById('age');
+    let cepField = document.getElementById('cep');
+    let countryField = document.getElementById('country');
     let skillsField = document.getElementById('skills');
     let firstNameField = document.getElementById('first-name');
     nameField.innerHTML = currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('name');
@@ -20,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function () {
     bioField.innerHTML = currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('desc');
     cpfField.innerHTML = 'CPF: ' + (currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cpf_cnpj'));
     ageField.innerHTML = 'Age: ' + (currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('age'));
+    cepField.innerHTML = 'CEP: ' + (currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cep'));
+    countryField.innerHTML = 'Country: ' + (currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('country'));
     skillsField.innerHTML = 'Skills: ' + (currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('skills_str'));
     firstNameField.innerHTML = nameField.innerHTML.split(' ')[0];
     (_c = document.getElementById('delete-acc')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', () => {

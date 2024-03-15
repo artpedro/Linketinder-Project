@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let emailField = document.getElementById('email');
     let bioField = document.getElementById('desc');
     let cpfField = document.getElementById('cpf-cnpj');
+    let cepField = document.getElementById('cep');
+    let countryField = document.getElementById('country');
     let skillsField = document.getElementById('skills');
     let firstNameField = document.getElementById('first-name');
     nameField.innerHTML = currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('name');
@@ -19,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
     bioField.innerHTML = currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('desc');
     cpfField.innerHTML = 'CNPJ: ' + (currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cpf_cnpj'));
     skillsField.innerHTML = 'Skills: ' + (currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('skills_str'));
+    cepField.innerHTML = 'CEP: ' + (currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cep'));
+    countryField.innerHTML = 'Country: ' + (currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('country'));
     firstNameField.innerHTML = nameField.innerHTML.split(' ')[0];
     (_c = document.getElementById('delete-acc')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', () => {
         handler.removeUserByEmail(userEmail);
@@ -66,14 +70,22 @@ document.addEventListener('DOMContentLoaded', function () {
     // Extract the labels (programming languages) and data (counts) from the Map
     const labels = Array.from(countMatchesSkills.keys());
     const data = Array.from(countMatchesSkills.values());
-    // Configuration for the Chart.js histogram
+    const combined = labels.map((label, index) => ({
+        label,
+        value: data[index]
+    }));
+    combined.sort((a, b) => a.value - b.value);
+    const sortedLabels = combined.map(item => item.label);
+    const sortedData = combined.map(item => item.value);
+    console.log(sortedLabels);
+    console.log(sortedData);
     const config = {
         type: 'bar',
         data: {
-            labels: labels,
+            labels: sortedLabels,
             datasets: [{
                     label: 'Candidate Skills Count',
-                    data: data,
+                    data: sortedData,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',

@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let bioField:HTMLElement = document.getElementById('desc') as HTMLElement
     let cpfField:HTMLElement = document.getElementById('cpf-cnpj') as HTMLElement
     let ageField:HTMLElement = document.getElementById('age') as HTMLElement
+    let cepField:HTMLElement = document.getElementById('cep') as HTMLElement
+    let countryField:HTMLElement = document.getElementById('country') as HTMLElement
     let skillsField:HTMLElement = document.getElementById('skills') as HTMLElement
     let firstNameField:HTMLElement = document.getElementById('first-name') as HTMLElement
 
@@ -21,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
     bioField.innerHTML= currentUser?.get('desc') as string
     cpfField.innerHTML= 'CPF: ' + currentUser?.get('cpf_cnpj') as string
     ageField.innerHTML= 'Age: ' + currentUser?.get('age') as string
+    cepField.innerHTML= 'CEP: ' + currentUser?.get('cep') as string
+    countryField.innerHTML= 'Country: ' + currentUser?.get('country') as string
     skillsField.innerHTML= 'Skills: ' + currentUser?.get('skills_str') as string
     firstNameField.innerHTML= nameField.innerHTML.split(' ')[0]
 
