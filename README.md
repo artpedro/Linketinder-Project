@@ -23,6 +23,10 @@ O atual projeto é um protótipo em CLI do back-end de uma aplicação chamada L
 
 O atual frontend é um protótipo, utilizando apenas Typescript e permanência em localstorage, do Linketinder, no qual os candidatos e empresas podem se registrar em um formulário e acessar seus perfis por uma tela de login. As funções de curtida e match ainda não foram implementadas, mas há dados pre-cadastrados para testes. Os candidatos podem ver as empresas com quem já ocorreu o match e seu nivel de afinidade com elas, enquanto as empresas podem ver apenas algumas informações dos usuários e um gráfico informando a distribuição de habilidades dos candidatos com quem ela compartilha match.
 
+## Futuras implementações
+
+O próximo passo seria permitir a criação de mais uma vaga por empresa no Linketinder. É uma funcionalidade essencial para cumprir a proposta de negócio da aplicação.
+
 ## Tecnologias utilizadas
 
 - Gradle
