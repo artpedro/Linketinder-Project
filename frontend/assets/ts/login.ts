@@ -10,10 +10,13 @@ document.getElementById('login')?.addEventListener('submit', function (this: HTM
    
     let logins: Record<string,string> = JSON.parse(localStorage.getItem('all_login') as string)
     let loginEmail: string = formDataMap.get('email') as string
-
-    if (loginEmail as string in logins){
+    if (!(loginEmail as string in logins)) {
+        console.log('Email inválido')
+    } else {
         let password = logins[loginEmail]
-        if (formDataMap.get('password') === password) {
+        if (!(formDataMap.get('password') === password)) {
+            console.log('Senha inválida')
+        } else {
             localStorage.setItem('current_user',loginEmail)
             const allUsers: UsersLog = objectToUsersLog(JSON.parse(localStorage.getItem('all_users') as string))
             let allCompanies:string[] = Array.from(allUsers.get('company')?.keys() ?? [''])
@@ -24,8 +27,6 @@ document.getElementById('login')?.addEventListener('submit', function (this: HTM
             } else {
             window.location.href = './candidate.html'
             }
-        } else {
-            console.log('invalid password')
         }
     } 
 })

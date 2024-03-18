@@ -10,9 +10,15 @@ var _a;
     }
     let logins = JSON.parse(localStorage.getItem('all_login'));
     let loginEmail = formDataMap.get('email');
-    if (loginEmail in logins) {
+    if (!(loginEmail in logins)) {
+        console.log('Email inválido');
+    }
+    else {
         let password = logins[loginEmail];
-        if (formDataMap.get('password') === password) {
+        if (!(formDataMap.get('password') === password)) {
+            console.log('Senha inválida');
+        }
+        else {
             localStorage.setItem('current_user', loginEmail);
             const allUsers = objectToUsersLog(JSON.parse(localStorage.getItem('all_users')));
             let allCompanies = Array.from((_b = (_a = allUsers.get('company')) === null || _a === void 0 ? void 0 : _a.keys()) !== null && _b !== void 0 ? _b : ['']);
@@ -24,9 +30,6 @@ var _a;
             else {
                 window.location.href = './candidate.html';
             }
-        }
-        else {
-            console.log('invalid password');
         }
     }
 });
