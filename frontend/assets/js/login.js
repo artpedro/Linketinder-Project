@@ -1,5 +1,6 @@
 "use strict";
 var _a;
+const errorSpan = document.getElementById('error');
 (_a = document.getElementById('login')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', function (event) {
     var _a, _b;
     event.preventDefault();
@@ -11,11 +12,15 @@ var _a;
     let logins = JSON.parse(localStorage.getItem('all_login'));
     let loginEmail = formDataMap.get('email');
     if (!(loginEmail in logins)) {
+        errorSpan.style.display = 'inline';
+        errorSpan.innerHTML = 'Email não cadastrado';
         console.log('Email inválido');
     }
     else {
         let password = logins[loginEmail];
         if (!(formDataMap.get('password') === password)) {
+            errorSpan.style.display = 'inline';
+            errorSpan.innerHTML = 'Senha errada';
             console.log('Senha inválida');
         }
         else {

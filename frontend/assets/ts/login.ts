@@ -1,3 +1,5 @@
+const errorSpan:HTMLElement = document.getElementById('error') as HTMLElement
+
 document.getElementById('login')?.addEventListener('submit', function (this: HTMLFormElement, event: Event): void {
     event.preventDefault()
     let formData: FormData = new FormData(this)
@@ -11,10 +13,14 @@ document.getElementById('login')?.addEventListener('submit', function (this: HTM
     let logins: Record<string,string> = JSON.parse(localStorage.getItem('all_login') as string)
     let loginEmail: string = formDataMap.get('email') as string
     if (!(loginEmail as string in logins)) {
+        errorSpan.style.display = 'inline'
+        errorSpan.innerHTML = 'Email não cadastrado'        
         console.log('Email inválido')
     } else {
         let password = logins[loginEmail]
         if (!(formDataMap.get('password') === password)) {
+            errorSpan.style.display = 'inline'
+            errorSpan.innerHTML = 'Senha errada'        
             console.log('Senha inválida')
         } else {
             localStorage.setItem('current_user',loginEmail)
