@@ -19,11 +19,19 @@ function mapToObject<T>(map: Map<string, T>): {[key: string]: T | any} {
     return out;
 }
 
-const objectToJobsLog = (obj: object): jobLog => {
+const objectToJobsLog = (obj: Object): jobLog => {
     const map: jobLog = new Map<string, jobEntry[]>();
 
+    if (obj == null || typeof obj !== 'object') {
+        console.error('Invalid input: obj must be a non-null object');
+        return new Map(); // Return an empty Map or handle this case as appropriate
+    }
+    console.log(obj)
+    console.log('passed test')
     Object.entries(obj).forEach(([key,jobList]) => {
-            let jobArray:jobEntry[] = []
+        console.log(key,jobList)
+        let jobArray:jobEntry[] = []
+
             jobList.forEach((job: { [s: string]: string|string[]; }) => 
             {
                 let currentJobEntry = new Map<string, string|string[]>()
@@ -69,7 +77,8 @@ class logHandler {
         const allUsersFromLocal: string | null = localStorage.getItem('all_users')
         const allLoginFromLocal: string | null = localStorage.getItem('all_login')
         const allJobsFromLocal: string | null = localStorage.getItem('all_jobs')
-        if (allUsersFromLocal === null && allLoginFromLocal === null) {
+        console.log(allJobsFromLocal)
+        if (allJobsFromLocal) {
             // dummy data
             this.current_log = new Map([
                 ['candidates', new Map([
@@ -319,6 +328,7 @@ class logHandler {
                 ['ivan.security@example.com', 'ivanSecure789'],
                 ['julia.mobile@example.com', 'juliaAppDev']
             ])
+
             this.jobs_log = new Map<string, Map<string, string | string[]>[]>([
                 ['cloudtechs@example.com', [
                     new Map<string,string|string[]>([
@@ -351,9 +361,8 @@ class logHandler {
                     ])
                 ]],
             ])
-            
+            console.log(this.jobs_log)
             console.log(typeof this.login_log);
-            
             console.log(this.current_log, 'on constructor')
             this.saveLog()
         } else {

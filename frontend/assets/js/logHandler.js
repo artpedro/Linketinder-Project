@@ -9,7 +9,14 @@ function mapToObject(map) {
 }
 const objectToJobsLog = (obj) => {
     const map = new Map();
+    if (obj == null || typeof obj !== 'object') {
+        console.error('Invalid input: obj must be a non-null object');
+        return new Map(); // Return an empty Map or handle this case as appropriate
+    }
+    console.log(obj);
+    console.log('passed test');
     Object.entries(obj).forEach(([key, jobList]) => {
+        console.log(key, jobList);
         let jobArray = [];
         jobList.forEach((job) => {
             let currentJobEntry = new Map();
@@ -46,7 +53,8 @@ class logHandler {
         const allUsersFromLocal = localStorage.getItem('all_users');
         const allLoginFromLocal = localStorage.getItem('all_login');
         const allJobsFromLocal = localStorage.getItem('all_jobs');
-        if (allUsersFromLocal === null && allLoginFromLocal === null) {
+        console.log(allJobsFromLocal);
+        if (allJobsFromLocal) {
             // dummy data
             this.current_log = new Map([
                 ['candidates', new Map([
@@ -327,6 +335,7 @@ class logHandler {
                         ])
                     ]],
             ]);
+            console.log(this.jobs_log);
             console.log(typeof this.login_log);
             console.log(this.current_log, 'on constructor');
             this.saveLog();

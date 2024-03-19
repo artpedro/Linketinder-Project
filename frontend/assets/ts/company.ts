@@ -24,4 +24,10 @@ class Company extends User {
         })
         return {'email': this.email, 'entry': attributesMap}
     }
+    createNewJob(title:string, desc:string,skills:string[],country:string):Job {
+        const createdJob:Job = new Job(title,this.email,desc,skills,country)
+        
+        return new Job(title,this.email,desc,skills,country)
+    }
+
 }

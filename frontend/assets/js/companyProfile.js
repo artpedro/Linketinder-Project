@@ -1,6 +1,6 @@
 "use strict";
 document.addEventListener('DOMContentLoaded', function () {
-    var _a, _b, _c, _d, _e, _f, _g, _h;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
     const handler = new userHandler();
     const userEmail = localStorage.getItem('current_user');
     const allUsers = objectToUsersLog(JSON.parse(localStorage.getItem('all_users')));
@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = './login.html';
     }
     const currentUser = (_b = allUsers.get('company')) === null || _b === void 0 ? void 0 : _b.get(userEmail);
+    const companyObject = new Company(currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('name'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('desc'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('email'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('country'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cep'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cpf_cnpj'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('password'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('skill_str'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('matches'));
     let nameField = document.getElementById('user-name');
     let emailField = document.getElementById('email');
     let bioField = document.getElementById('desc');
@@ -67,6 +68,22 @@ document.addEventListener('DOMContentLoaded', function () {
             "</div>";
         count++;
     });
+    (_h = document.getElementById('new-user')) === null || _h === void 0 ? void 0 : _h.addEventListener('new-job', function (event) {
+        var _a, _b, _c, _d, _e;
+        event.preventDefault();
+        let formData = new FormData(this);
+        let formDataMap = new Map();
+        for (const [key, value] of formData.entries()) {
+            formDataMap.set(key, value);
+        }
+        const title = (_a = formDataMap.get('title')) !== null && _a !== void 0 ? _a : '';
+        const country = (_b = formDataMap.get('country')) !== null && _b !== void 0 ? _b : '';
+        const desc = (_c = formDataMap.get('description')) !== null && _c !== void 0 ? _c : '';
+        const skills = (_e = (_d = formDataMap.get('skills')) === null || _d === void 0 ? void 0 : _d.split(',')) !== null && _e !== void 0 ? _e : [''];
+        console.log(formDataMap);
+        companyObject.createNewJob(title, desc, skills, country);
+        window.location.href = './login.html';
+    });
     // Extract the labels (programming languages) and data (counts) from the Map
     const labels = Array.from(countMatchesSkills.keys());
     const data = Array.from(countMatchesSkills.values());
@@ -116,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
     // Render the chart
-    const ctx = (_h = document.getElementById('skill-graph').getContext('2d')) !== null && _h !== void 0 ? _h : '';
+    const ctx = (_j = document.getElementById('skill-graph').getContext('2d')) !== null && _j !== void 0 ? _j : '';
     // @ts-ignore
     new Chart(ctx, config);
 });

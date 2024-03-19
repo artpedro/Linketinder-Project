@@ -9,7 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!allUsers.get('company')?.has(userEmail)) {
         window.location.href = './login.html'
     }
+
     const currentUser = allUsers.get('company')?.get(userEmail)
+    const companyObject = new Company(currentUser?.get('name') as string,currentUser?.get('desc') as string,currentUser?.get('email') as string,currentUser?.get('country') as string,currentUser?.get('cep') as string,currentUser?.get('cpf_cnpj') as string,currentUser?.get('password') as string,currentUser?.get('skill_str') as string,currentUser?.get('matches') as string)
+
     let nameField:HTMLElement = document.getElementById('user-name') as HTMLElement
     let emailField:HTMLElement = document.getElementById('email') as HTMLElement
     let bioField:HTMLElement = document.getElementById('desc') as HTMLElement
@@ -71,6 +74,25 @@ document.addEventListener('DOMContentLoaded', function () {
         "</div>" +
       "</div>"
       count++
+    })
+
+    document.getElementById('new-user')?.addEventListener('new-job', function (this: HTMLFormElement, event: Event): void {
+        event.preventDefault()
+
+        let formData: FormData = new FormData(this)
+    
+        let formDataMap: Map<string, string> = new Map();
+        for (const [key,value] of formData.entries()) {
+            formDataMap.set(key,value as string)
+        }
+        const title:string = formDataMap.get('title') ?? ''
+        const country:string = formDataMap.get('country')  ?? ''
+        const desc:string = formDataMap.get('description') ?? ''
+        const skills:string[] = formDataMap.get('skills')?.split(',') ?? ['']
+        
+        console.log(formDataMap)
+        companyObject.createNewJob(title,desc,skills,country)
+        window.location.href = './login.html'
     })
 
     // Extract the labels (programming languages) and data (counts) from the Map

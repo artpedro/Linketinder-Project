@@ -67,3 +67,13 @@ body{
     background-color: #392467;
     margin-bottom: 10vh;
 }
+
+.creating {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+#add {
+    background-color: #392467 !important;
+    margin-bottom: 2vh;
+}

@@ -15,4 +15,8 @@ class Company extends User {
         });
         return { 'email': this.email, 'entry': attributesMap };
     }
+    createNewJob(title, desc, skills, country) {
+        const createdJob = new Job(title, this.email, desc, skills, country);
+        return new Job(title, this.email, desc, skills, country);
+    }
 }
