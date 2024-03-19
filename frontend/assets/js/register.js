@@ -2,13 +2,16 @@
 var _a;
 document.addEventListener('DOMContentLoaded', () => {
     const checkbox = document.getElementById('is-candidate');
-    const formContainer = document.getElementById('candidate-age');
+    const ageContainer = document.getElementById('candidate-age');
+    const skillsContainer = document.getElementById('candidate-skills');
     checkbox === null || checkbox === void 0 ? void 0 : checkbox.addEventListener('change', () => {
         if (checkbox.checked) {
-            formContainer.style.display = 'block';
+            ageContainer.style.display = 'block';
+            skillsContainer.style.display = 'block';
         }
         else {
-            formContainer.style.display = 'none';
+            ageContainer.style.display = 'none';
+            skillsContainer.style.display = 'none';
         }
     });
     const init = new logHandler();

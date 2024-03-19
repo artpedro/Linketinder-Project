@@ -1,15 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
     const checkbox: HTMLInputElement | null = document.getElementById('is-candidate') as HTMLInputElement
-    const formContainer: HTMLElement | null = document.getElementById('candidate-age')
-
+    const ageContainer: HTMLElement | null = document.getElementById('candidate-age')
+    const skillsContainer: HTMLElement | null = document.getElementById('candidate-skills')
     checkbox?.addEventListener('change', () => {
         if (checkbox.checked) {
-            formContainer!.style.display = 'block'
+            ageContainer!.style.display = 'block'
+            skillsContainer!.style.display = 'block'
         } else {
-            formContainer!.style.display = 'none'
+            ageContainer!.style.display = 'none'
+            skillsContainer!.style.display = 'none'
         }
     })
-
     const init:logHandler = new logHandler()
 })
 
