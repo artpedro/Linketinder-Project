@@ -1,4 +1,5 @@
 "use strict";
+// methods for type manipulation
 function mapToObject(map) {
     const out = {};
     for (const [key, value] of map) {
@@ -6,6 +7,26 @@ function mapToObject(map) {
     }
     return out;
 }
+const objectToJobsLog = (obj) => {
+    const map = new Map();
+    Object.entries(obj).forEach(([key, jobList]) => {
+        let jobArray = [];
+        jobList.forEach((job) => {
+            let currentJobEntry = new Map();
+            Object.entries(job).forEach(([key, value]) => {
+                if (key === 'skills') {
+                    currentJobEntry.set(key, value);
+                }
+                else {
+                    currentJobEntry.set(key, value);
+                }
+            });
+            jobArray.push(currentJobEntry);
+        });
+        map.set(key, jobArray);
+    });
+    return map;
+};
 const objectToUsersLog = (obj) => {
     const map = new Map();
     Object.keys(obj).forEach(key => {
@@ -24,7 +45,9 @@ class logHandler {
     constructor() {
         const allUsersFromLocal = localStorage.getItem('all_users');
         const allLoginFromLocal = localStorage.getItem('all_login');
+        const allJobsFromLocal = localStorage.getItem('all_jobs');
         if (allUsersFromLocal === null && allLoginFromLocal === null) {
+            // dummy data
             this.current_log = new Map([
                 ['candidates', new Map([
                         ['alice.tech@example.com', new Map([
@@ -272,6 +295,38 @@ class logHandler {
                 ['ivan.security@example.com', 'ivanSecure789'],
                 ['julia.mobile@example.com', 'juliaAppDev']
             ]);
+            this.jobs_log = new Map([
+                ['cloudtechs@example.com', [
+                        new Map([
+                            ['title', 'Cloud Infrastructure Architect'],
+                            ['owner', 'cloudtechs@example.com'],
+                            ['desc', 'Design and implement secure cloud environments.'],
+                            ['country', 'Cloudscape'],
+                            ['matches', []], // Empty array for now
+                            ['skills', []] // Empty array for now
+                        ])
+                    ]],
+                ['datadynamics@example.com', [
+                        new Map([
+                            ['title', 'Data Scientist'],
+                            ['owner', 'datadynamics@example.com'],
+                            ['desc', 'Analyze datasets and improve our algorithms.'],
+                            ['country', 'Dataville'],
+                            ['matches', []],
+                            ['skills', []]
+                        ])
+                    ]],
+                ['webfronts@example.com', [
+                        new Map([
+                            ['title', 'Front-End Developer'],
+                            ['owner', 'webfronts@example.com'],
+                            ['desc', 'Create stunning web interfaces that are efficient and user-friendly.'],
+                            ['country', 'Designland'],
+                            ['matches', []],
+                            ['skills', []]
+                        ])
+                    ]],
+            ]);
             console.log(typeof this.login_log);
             console.log(this.current_log, 'on constructor');
             this.saveLog();
@@ -280,14 +335,18 @@ class logHandler {
             console.log('on constructor but in else');
             this.login_log = new Map(Object.entries(JSON.parse(allLoginFromLocal)));
             this.current_log = objectToUsersLog(JSON.parse(allUsersFromLocal));
+            this.jobs_log = objectToJobsLog(JSON.parse(allJobsFromLocal));
             this.saveLog();
         }
     }
-    saveLog(newLog = this.current_log, loginLog = this.login_log) {
-        const logObject = mapToObject(newLog);
-        const logToString = JSON.stringify(logObject);
-        const loginObject = mapToObject(loginLog);
-        const loginToString = JSON.stringify(loginObject);
+    saveLog(newLog = this.current_log, loginLog = this.login_log, jobsLog = this.jobs_log) {
+        let logObject = mapToObject(newLog);
+        let loginObject = mapToObject(loginLog);
+        let jobsObject = mapToObject(jobsLog);
+        let logToString = JSON.stringify(logObject);
+        let jobsToString = JSON.stringify(jobsObject);
+        let loginToString = JSON.stringify(loginObject);
+        localStorage.setItem('all_jobs', jobsToString);
         localStorage.setItem('all_users', logToString);
         localStorage.setItem('all_login', loginToString);
     }
@@ -305,6 +364,21 @@ class logHandler {
         let email = user.email;
         let password = user.password;
         this.login_log.set(email, password);
+        this.saveLog(); // Persist changes
+    }
+    // methods for jobs
+    addJobToLog(newJob) {
+        const newJobEntry = newJob.toJobEntry();
+        const jobOwner = newJob.owner;
+        console.log("in add to log: ", newJobEntry);
+        let jobLogEntry = this.jobs_log.get(jobOwner);
+        if (!jobLogEntry) {
+            console.log('inside !jobLogEntry');
+            this.jobs_log.set(jobOwner, new Array(newJobEntry));
+        }
+        else {
+            jobLogEntry.push(newJobEntry);
+        }
         this.saveLog(); // Persist changes
     }
 }

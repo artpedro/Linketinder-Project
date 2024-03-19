@@ -1,3 +1,6 @@
+type jobEntry = Map<string,string|string[]>
+type jobLog = Map<string,jobEntry[]>
+
 type logEntry = {
     email : string,
     entry : Map<string,string>
@@ -6,6 +9,8 @@ type UserInfo = Map<string, string>;
 type UserCategory = 'candidates' | 'company';
 type UsersLog = Map<UserCategory, Map<string, UserInfo>>;
 
+// methods for type manipulation
+
 function mapToObject<T>(map: Map<string, T>): {[key: string]: T | any} {
     const out: {[key: string]: T | any} = {};
     for (const [key, value] of map) {
@@ -13,6 +18,29 @@ function mapToObject<T>(map: Map<string, T>): {[key: string]: T | any} {
     }
     return out;
 }
+
+const objectToJobsLog = (obj: object): jobLog => {
+    const map: jobLog = new Map<string, jobEntry[]>();
+
+    Object.entries(obj).forEach(([key,jobList]) => {
+            let jobArray:jobEntry[] = []
+            jobList.forEach((job: { [s: string]: string|string[]; }) => 
+            {
+                let currentJobEntry = new Map<string, string|string[]>()
+                Object.entries(job).forEach(([key,value]) => {
+                    if (key === 'skills') {
+                        currentJobEntry.set(key,value as string[])
+                    } else {
+                        currentJobEntry.set(key,value as string)
+                    }
+                }) 
+                jobArray.push(currentJobEntry)
+            })
+            map.set(key,jobArray)
+    });
+
+    return map;
+};
 
 const objectToUsersLog = (obj: any): UsersLog => {
     const map: UsersLog = new Map<UserCategory, Map<string, UserInfo>>();
@@ -36,10 +64,13 @@ const objectToUsersLog = (obj: any): UsersLog => {
 class logHandler {
     public current_log: UsersLog
     public login_log: Map<string,string>
+    public jobs_log: jobLog
     constructor() {
         const allUsersFromLocal: string | null = localStorage.getItem('all_users')
         const allLoginFromLocal: string | null = localStorage.getItem('all_login')
+        const allJobsFromLocal: string | null = localStorage.getItem('all_jobs')
         if (allUsersFromLocal === null && allLoginFromLocal === null) {
+            // dummy data
             this.current_log = new Map([
                 ['candidates', new Map([
                     ['alice.tech@example.com', new Map([
@@ -288,6 +319,39 @@ class logHandler {
                 ['ivan.security@example.com', 'ivanSecure789'],
                 ['julia.mobile@example.com', 'juliaAppDev']
             ])
+            this.jobs_log = new Map<string, Map<string, string | string[]>[]>([
+                ['cloudtechs@example.com', [
+                    new Map<string,string|string[]>([
+                        ['title', 'Cloud Infrastructure Architect'],
+                        ['owner', 'cloudtechs@example.com'],
+                        ['desc', 'Design and implement secure cloud environments.'],
+                        ['country', 'Cloudscape'],
+                        ['matches', []], // Empty array for now
+                        ['skills', []] // Empty array for now
+                    ])
+                ]],
+                ['datadynamics@example.com', [
+                    new Map<string,string|string[]>([
+                        ['title', 'Data Scientist'],
+                        ['owner', 'datadynamics@example.com'],
+                        ['desc', 'Analyze datasets and improve our algorithms.'],
+                        ['country', 'Dataville'],
+                        ['matches', []],
+                        ['skills', []]
+                    ])
+                ]],
+                ['webfronts@example.com', [
+                    new Map<string,string|string[]>([
+                        ['title', 'Front-End Developer'],
+                        ['owner', 'webfronts@example.com'],
+                        ['desc', 'Create stunning web interfaces that are efficient and user-friendly.'],
+                        ['country', 'Designland'],
+                        ['matches', []],
+                        ['skills', []]
+                    ])
+                ]],
+            ])
+            
             console.log(typeof this.login_log);
             
             console.log(this.current_log, 'on constructor')
@@ -296,21 +360,22 @@ class logHandler {
             console.log('on constructor but in else');
             this.login_log = new Map<string,string>(Object.entries(JSON.parse(allLoginFromLocal as string)))
             this.current_log = objectToUsersLog(JSON.parse(allUsersFromLocal as string))
-
+            this.jobs_log = objectToJobsLog(JSON.parse(allJobsFromLocal as string))
             this.saveLog()
         }
     }
 
-    saveLog(newLog: UsersLog = this.current_log, loginLog = this.login_log): void {      
-        const logObject:Object = mapToObject(newLog)  
+    saveLog(newLog: UsersLog = this.current_log, loginLog = this.login_log, jobsLog = this.jobs_log): void {      
+        let logObject:Object = mapToObject(newLog)  
+        let loginObject: Object = mapToObject(loginLog)
+        let jobsObject: Object = mapToObject(jobsLog)
 
-        const logToString: string = JSON.stringify(logObject);
+        let logToString: string = JSON.stringify(logObject)
+        let jobsToString: string = JSON.stringify(jobsObject)
+        let loginToString: string = JSON.stringify(loginObject)
 
-        const loginObject: Object = mapToObject(loginLog)
-
-        const loginToString: string = JSON.stringify(loginObject)
-        
-        localStorage.setItem('all_users', logToString);
+        localStorage.setItem('all_jobs', jobsToString)
+        localStorage.setItem('all_users', logToString)
         localStorage.setItem('all_login', loginToString)
     }
 
@@ -333,6 +398,25 @@ class logHandler {
         let password:string = user.password
 
         this.login_log.set(email, password)
+
+        this.saveLog(); // Persist changes
+    }
+
+    // methods for jobs
+
+    addJobToLog(newJob: Job) {
+        const newJobEntry: jobEntry = newJob.toJobEntry()
+        const jobOwner: string = newJob.owner
+        console.log("in add to log: ",newJobEntry);
+        
+        let jobLogEntry: jobEntry[]|undefined = this.jobs_log.get(jobOwner);
+        
+        if (!jobLogEntry) {
+            console.log('inside !jobLogEntry');
+            this.jobs_log.set(jobOwner, new Array<jobEntry>(newJobEntry));
+        } else {
+            jobLogEntry.push(newJobEntry)
+        }
 
         this.saveLog(); // Persist changes
     }
