@@ -2,8 +2,9 @@
 class fieldChecker {
     constructor() {
     }
-    static checkField(type, name) {
-        let pattern;
+    static checkField(type, userInput) {
+        // Expressão regular que sempre retorna falso
+        let pattern = /[^\S\s]+/;
         let capitalName = RegExp('[A-ZÀ-Ú\'][a-zà-ú\']');
         switch (type) {
             case 'name':
@@ -12,11 +13,11 @@ class fieldChecker {
                 break;
             case 'email':
                 // Permite emails com -. e letras com dois sufixos de tamanhos limitados espaçados por pontos
-                pattern = /^\w+([\.-]?\w+)*\w@\w+\.\w{2,6}(\.\w{2})?/;
+                pattern = /^[a-z]+(([\.-]+)?[a-z]+)*@[a-z]+\.[a-z]{2,6}(\.[a-z]{2})?/;
                 break;
             case 'password':
                 // Permite senhas de 6 a 20 digitos, com, pelo menos, 1 letra minuscula, 1 letra maiuscula, 1 dígito e 1 caractere especial
-                pattern = /^(?=.*[A-Z])(?=.*[a-z])(?=\d*)(?=[@#$%!^&*]*).{6,20}$/;
+                pattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%!^&*]).{6,20}$/;
                 break;
             case 'telephone':
                 // Requer um DDD mas é opcional adicionar parenteses, espaços, hífen e um número a mais no início
@@ -39,12 +40,11 @@ class fieldChecker {
                 pattern = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$|^\d{14}$/;
                 break;
             case 'desc':
-                // A descricao deve ser breve e objetiva, nao pode utilizar espaços 
-                pattern = /[\w]/;
+                // A descricao deve ser breve e objetiva, nao pode utilizar espaços duplos 
+                pattern = /[A-ZÀ-Ú\'a-zà-ú\!\?\.",\d]+ ?)+`/;
             default:
-                // If the type is unknown, return false
                 return false;
         }
-        return true;
+        return pattern.test(userInput);
     }
 }
