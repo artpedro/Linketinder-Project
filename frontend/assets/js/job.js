@@ -1,6 +1,6 @@
 "use strict";
 class Job {
-    constructor(title, owner, desc, skills, country, hardMatches = []) {
+    constructor(title, owner, desc, skills, country, hardMatches = ['placeholder', 'teste']) {
         this.title = title;
         this.owner = owner;
         this.desc = desc;
@@ -9,6 +9,6 @@ class Job {
         this.matches = hardMatches;
     }
     toJobEntry() {
-        return new Map([['title', this.title], ['desc', this.desc], ['country', this.country], ['skills', this.skills]]);
+        return new Map([['title', this.title], ['owner', this.owner], ['desc', this.desc], ['country', this.country], ['skills', this.skills], ['matches', this.matches]]);
     }
 }

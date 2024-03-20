@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const currentUser = allUsers.get('company')?.get(userEmail)
-    const companyObject = new Company(currentUser?.get('name') as string,currentUser?.get('desc') as string,currentUser?.get('email') as string,currentUser?.get('country') as string,currentUser?.get('cep') as string,currentUser?.get('cpf_cnpj') as string,currentUser?.get('password') as string,currentUser?.get('skill_str') as string,currentUser?.get('matches') as string)
+    console.log(currentUser)
+    console.log(currentUser?.get('name') as string,currentUser?.get('desc') as string,userEmail,currentUser?.get('country') as string,currentUser?.get('cep') as string,currentUser?.get('cpf_cnpj') as string,currentUser?.get('password') as string,currentUser?.get('skills_str') as string,currentUser?.get('matches') as string)
+    const companyObject = new Company(currentUser?.get('name') as string,currentUser?.get('desc') as string,currentUser?.get('email') as string,currentUser?.get('country') as string,currentUser?.get('cep') as string,currentUser?.get('cpf_cnpj') as string,currentUser?.get('password') as string,currentUser?.get('skills_str') as string,currentUser?.get('matches') as string)
 
     let nameField:HTMLElement = document.getElementById('user-name') as HTMLElement
     let emailField:HTMLElement = document.getElementById('email') as HTMLElement
@@ -26,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
     emailField.innerHTML= userEmail
     bioField.innerHTML= currentUser?.get('desc') as string
     cpfField.innerHTML= 'CNPJ: ' + currentUser?.get('cpf_cnpj') as string
-    skillsField.innerHTML= 'Skills: ' + currentUser?.get('skills_str') as string
     cepField.innerHTML= 'CEP: ' + currentUser?.get('cep') as string
     countryField.innerHTML= 'Country: ' + currentUser?.get('country') as string
     firstNameField.innerHTML= nameField.innerHTML.split(' ')[0]
@@ -76,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
       count++
     })
 
-    document.getElementById('new-user')?.addEventListener('new-job', function (this: HTMLFormElement, event: Event): void {
+    document.getElementById('new-job')?.addEventListener('submit', function (this: HTMLFormElement, event: Event): void {
         event.preventDefault()
 
         let formData: FormData = new FormData(this)
@@ -91,8 +92,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const skills:string[] = formDataMap.get('skills')?.split(',') ?? ['']
         
         console.log(formDataMap)
-        companyObject.createNewJob(title,desc,skills,country)
-        window.location.href = './login.html'
+        console.log('company obj',companyObject)
+        const newJobCreated:Job = companyObject.createNewJob(title,desc,skills,country)
+        console.log(newJobCreated)
+        handler.addJobToLog(newJobCreated)
     })
 
     // Extract the labels (programming languages) and data (counts) from the Map

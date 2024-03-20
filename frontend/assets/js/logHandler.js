@@ -3,7 +3,16 @@
 function mapToObject(map) {
     const out = {};
     for (const [key, value] of map) {
-        out[key] = value instanceof Map ? mapToObject(value) : value;
+        if (value instanceof Map) {
+            out[key] = mapToObject(value);
+        }
+        else if (Array.isArray(value)) {
+            // Check if the array contains Map objects and convert each one
+            out[key] = value.map(item => item instanceof Map ? mapToObject(item) : item);
+        }
+        else {
+            out[key] = value;
+        }
     }
     return out;
 }
@@ -13,10 +22,7 @@ const objectToJobsLog = (obj) => {
         console.error('Invalid input: obj must be a non-null object');
         return new Map(); // Return an empty Map or handle this case as appropriate
     }
-    console.log(obj);
-    console.log('passed test');
     Object.entries(obj).forEach(([key, jobList]) => {
-        console.log(key, jobList);
         let jobArray = [];
         jobList.forEach((job) => {
             let currentJobEntry = new Map();
@@ -53,8 +59,7 @@ class logHandler {
         const allUsersFromLocal = localStorage.getItem('all_users');
         const allLoginFromLocal = localStorage.getItem('all_login');
         const allJobsFromLocal = localStorage.getItem('all_jobs');
-        console.log(allJobsFromLocal);
-        if (allJobsFromLocal) {
+        if (!allJobsFromLocal) {
             // dummy data
             this.current_log = new Map([
                 ['candidates', new Map([
@@ -182,7 +187,7 @@ class logHandler {
                         ['cloudtechs@example.com', new Map([
                                 ['name', 'CloudTechs Solutions'],
                                 ['country', 'Cloudscape'],
-                                ['email', 'hr@cloudtechs.com'],
+                                ['email', 'cloudtechs@example.com'],
                                 ['desc', 'Leading provider of cloud services and infrastructure.'],
                                 ['cep', '99876-543'],
                                 ['cpf_cnpj', '111.222.333/0004-44'],
@@ -193,7 +198,7 @@ class logHandler {
                         ['datadynamics@example.com', new Map([
                                 ['name', 'Data Dynamics'],
                                 ['country', 'Dataville'],
-                                ['email', 'info@datadynamics.com'],
+                                ['email', 'datadynamics@example.com'],
                                 ['desc', 'Data analytics and machine learning company transforming business intelligence.'],
                                 ['cep', '88976-432'],
                                 ['cpf_cnpj', '222.333.444/0005-55'],
@@ -204,7 +209,7 @@ class logHandler {
                         ['webfronts@example.com', new Map([
                                 ['name', 'WebFronts Technologies'],
                                 ['country', 'Designland'],
-                                ['email', 'contact@webfronts.com'],
+                                ['email', 'webfronts@example.com'],
                                 ['desc', 'Front-end development house crafting beautiful and responsive web applications.'],
                                 ['cep', '77665-321'],
                                 ['cpf_cnpj', '333.444.555/0006-66'],
@@ -215,7 +220,7 @@ class logHandler {
                         ['innovatech@example.com', new Map([
                                 ['name', 'InnovaTech'],
                                 ['country', 'Innovatia'],
-                                ['email', 'hr@innovatech.com'],
+                                ['email', 'innovatech@example.com'],
                                 ['desc', 'Pioneering software solutions with cutting-edge technologies.'],
                                 ['cep', '98765-432'],
                                 ['cpf_cnpj', '999.888.777/0001-11'],
@@ -226,7 +231,7 @@ class logHandler {
                         ['devstars@example.com', new Map([
                                 ['name', 'DevStars Ltd.'],
                                 ['country', 'Devland'],
-                                ['email', 'contact@devstars.com'],
+                                ['email', 'devstars@example.com'],
                                 ['desc', 'We build amazing web experiences using JavaScript and React.'],
                                 ['cep', '87654-321'],
                                 ['cpf_cnpj', '888.777.666/0002-22'],
@@ -237,7 +242,7 @@ class logHandler {
                         ['blocknext@example.com', new Map([
                                 ['name', 'BlockNext Solutions'],
                                 ['country', 'Cryptonia'],
-                                ['email', 'info@blocknext.com'],
+                                ['email', 'blocknext@example.com'],
                                 ['desc', 'Innovative blockchain solutions provider, specializing in custom blockchain development.'],
                                 ['cep', '66554-321'],
                                 ['cpf_cnpj', '444.555.666/0007-77'],
@@ -248,7 +253,7 @@ class logHandler {
                         ['cryptoledge@example.com', new Map([
                                 ['name', 'CryptoLedge'],
                                 ['country', 'Ledgerville'],
-                                ['email', 'contact@cryptoledge.com'],
+                                ['email', 'cryptoledge@example.com'],
                                 ['desc', 'Leading the edge in cryptocurrency innovations and ledger technologies.'],
                                 ['cep', '55443-210'],
                                 ['cpf_cnpj', '555.666.777/0008-88'],
@@ -259,7 +264,7 @@ class logHandler {
                         ['ainnovations@example.com', new Map([
                                 ['name', 'AI Innovations Inc.'],
                                 ['country', 'Techtopia'],
-                                ['email', 'hr@aiinnovations.inc'],
+                                ['email', 'ainnovations@example.com'],
                                 ['desc', 'Frontiers of AI research and development, focusing on scalable AI solutions.'],
                                 ['cep', '44332-109'],
                                 ['cpf_cnpj', '666.777.888/0009-99'],
@@ -270,7 +275,7 @@ class logHandler {
                         ['cyberfront@example.com', new Map([
                                 ['name', 'CyberFront Technologies'],
                                 ['country', 'Secureland'],
-                                ['email', 'support@cyberfront.tech'],
+                                ['email', 'cyberfront@example.com'],
                                 ['desc', 'Cybersecurity firm providing cutting-edge security solutions to businesses worldwide.'],
                                 ['cep', '33221-098'],
                                 ['cpf_cnpj', '777.888.999/0010-00'],
@@ -310,8 +315,8 @@ class logHandler {
                             ['owner', 'cloudtechs@example.com'],
                             ['desc', 'Design and implement secure cloud environments.'],
                             ['country', 'Cloudscape'],
-                            ['matches', []], // Empty array for now
-                            ['skills', []] // Empty array for now
+                            ['matches', ['test', 'test']], // Empty array for now
+                            ['skills', ['test', 'test']] // Empty array for now
                         ])
                     ]],
                 ['datadynamics@example.com', [
@@ -320,8 +325,16 @@ class logHandler {
                             ['owner', 'datadynamics@example.com'],
                             ['desc', 'Analyze datasets and improve our algorithms.'],
                             ['country', 'Dataville'],
-                            ['matches', []],
-                            ['skills', []]
+                            ['matches', ['test', 'test']],
+                            ['skills', ['test', 'test']]
+                        ]),
+                        new Map([
+                            ['title', 'Front-End Developer'],
+                            ['owner', 'webfronts@example.com'],
+                            ['desc', 'Create stunning web interfaces that are efficient and user-friendly.'],
+                            ['country', 'Designland'],
+                            ['matches', ['test', 'test']],
+                            ['skills', ['test', 'test']]
                         ])
                     ]],
                 ['webfronts@example.com', [
@@ -330,18 +343,14 @@ class logHandler {
                             ['owner', 'webfronts@example.com'],
                             ['desc', 'Create stunning web interfaces that are efficient and user-friendly.'],
                             ['country', 'Designland'],
-                            ['matches', []],
-                            ['skills', []]
+                            ['matches', ['test', 'test']],
+                            ['skills', ['test', 'test']]
                         ])
-                    ]],
+                    ]]
             ]);
-            console.log(this.jobs_log);
-            console.log(typeof this.login_log);
-            console.log(this.current_log, 'on constructor');
             this.saveLog();
         }
         else {
-            console.log('on constructor but in else');
             this.login_log = new Map(Object.entries(JSON.parse(allLoginFromLocal)));
             this.current_log = objectToUsersLog(JSON.parse(allUsersFromLocal));
             this.jobs_log = objectToJobsLog(JSON.parse(allJobsFromLocal));
@@ -353,7 +362,7 @@ class logHandler {
         let loginObject = mapToObject(loginLog);
         let jobsObject = mapToObject(jobsLog);
         let logToString = JSON.stringify(logObject);
-        let jobsToString = JSON.stringify(jobsObject);
+        let jobsToString = JSON.stringify(jobsObject, null, 2);
         let loginToString = JSON.stringify(loginObject);
         localStorage.setItem('all_jobs', jobsToString);
         localStorage.setItem('all_users', logToString);
@@ -362,10 +371,8 @@ class logHandler {
     addToLog(user) {
         const userEntry = user.toLogEntry();
         const logType = user instanceof Candidate ? 'candidates' : 'company';
-        console.log("in add to log: ", userEntry, logType);
         let userLog = this.current_log.get(logType);
         if (!userLog) {
-            console.log('inside !userlog');
             userLog = new Map();
             this.current_log.set(logType, userLog);
         }
@@ -378,11 +385,12 @@ class logHandler {
     // methods for jobs
     addJobToLog(newJob) {
         const newJobEntry = newJob.toJobEntry();
+        console.log('teste job entry', newJobEntry);
         const jobOwner = newJob.owner;
-        console.log("in add to log: ", newJobEntry);
+        console.log('teste job owner', jobOwner);
         let jobLogEntry = this.jobs_log.get(jobOwner);
+        console.log('teste job entry', jobLogEntry);
         if (!jobLogEntry) {
-            console.log('inside !jobLogEntry');
             this.jobs_log.set(jobOwner, new Array(newJobEntry));
         }
         else {

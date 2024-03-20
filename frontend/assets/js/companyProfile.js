@@ -8,7 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = './login.html';
     }
     const currentUser = (_b = allUsers.get('company')) === null || _b === void 0 ? void 0 : _b.get(userEmail);
-    const companyObject = new Company(currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('name'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('desc'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('email'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('country'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cep'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cpf_cnpj'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('password'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('skill_str'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('matches'));
+    console.log(currentUser);
+    console.log(currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('name'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('desc'), userEmail, currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('country'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cep'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cpf_cnpj'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('password'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('skills_str'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('matches'));
+    const companyObject = new Company(currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('name'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('desc'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('email'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('country'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cep'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cpf_cnpj'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('password'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('skills_str'), currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('matches'));
     let nameField = document.getElementById('user-name');
     let emailField = document.getElementById('email');
     let bioField = document.getElementById('desc');
@@ -21,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
     emailField.innerHTML = userEmail;
     bioField.innerHTML = currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('desc');
     cpfField.innerHTML = 'CNPJ: ' + (currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cpf_cnpj'));
-    skillsField.innerHTML = 'Skills: ' + (currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('skills_str'));
     cepField.innerHTML = 'CEP: ' + (currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('cep'));
     countryField.innerHTML = 'Country: ' + (currentUser === null || currentUser === void 0 ? void 0 : currentUser.get('country'));
     firstNameField.innerHTML = nameField.innerHTML.split(' ')[0];
@@ -68,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
             "</div>";
         count++;
     });
-    (_h = document.getElementById('new-user')) === null || _h === void 0 ? void 0 : _h.addEventListener('new-job', function (event) {
+    (_h = document.getElementById('new-job')) === null || _h === void 0 ? void 0 : _h.addEventListener('submit', function (event) {
         var _a, _b, _c, _d, _e;
         event.preventDefault();
         let formData = new FormData(this);
@@ -81,8 +82,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const desc = (_c = formDataMap.get('description')) !== null && _c !== void 0 ? _c : '';
         const skills = (_e = (_d = formDataMap.get('skills')) === null || _d === void 0 ? void 0 : _d.split(',')) !== null && _e !== void 0 ? _e : [''];
         console.log(formDataMap);
-        companyObject.createNewJob(title, desc, skills, country);
-        window.location.href = './login.html';
+        console.log('company obj', companyObject);
+        const newJobCreated = companyObject.createNewJob(title, desc, skills, country);
+        console.log(newJobCreated);
+        handler.addJobToLog(newJobCreated);
     });
     // Extract the labels (programming languages) and data (counts) from the Map
     const labels = Array.from(countMatchesSkills.keys());
