@@ -25,7 +25,7 @@ O atual frontend é um protótipo, utilizando apenas Typescript e permanência e
 
 ## Futuras implementações
 
-O próximo passo seria permitir a criação de mais uma vaga por empresa no Linketinder. É uma funcionalidade essencial para cumprir a proposta de negócio da aplicação.
+A criação de mais de uma vaga por empresa já foi implementada, porém resta vincular os candidatos a essas vagas e não às próprias empresas. Isso será implementado em futuras atualizações.
 
 ## Tecnologias utilizadas
 
