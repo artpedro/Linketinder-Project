@@ -41,7 +41,7 @@ class fieldChecker {
                 break
             case 'desc':
                 // A descricao deve ser breve e objetiva, nao pode utilizar espaços duplos 
-                pattern = /[A-ZÀ-Ú\'a-zà-ú\!\?\.",\d]+ ?)+`/
+                pattern = /([A-ZÀ-Ú\'a-zà-ú\!\?\.",\d]+ ?)+/
             case 'skills':
                 // As skills devem ser separadas por vírgulas e podem ser utilizados espaços e caracteres acentuados
                 pattern = /^([\wÀ-Ú\.à-ú ]+,?[\wÀ-Ú\.à-ú ]+)+$/
