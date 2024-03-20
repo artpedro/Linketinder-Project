@@ -5,11 +5,12 @@ class fieldChecker {
     static checkField(type, userInput) {
         // Expressão regular que sempre retorna falso
         let pattern = /[^\S\s]+/;
-        let capitalName = RegExp('[A-ZÀ-Ú\'][a-zà-ú\']');
+        let capitalName = `[A-ZÀ-Ú\\'][a-zà-ú\\']`;
         switch (type) {
             case 'name':
                 // Permite palavras capitalizadas espaçadas com - ou espaço comum
-                pattern = RegExp(`/^(${capitalName}+((-${capitalName}+)+)? ?)+$/`);
+                pattern = RegExp(`^(${capitalName}+((-${capitalName}+)+)? ?)+$`);
+                console.log(pattern);
                 break;
             case 'email':
                 // Permite emails com -. e letras com dois sufixos de tamanhos limitados espaçados por pontos
@@ -29,7 +30,7 @@ class fieldChecker {
                 break;
             case 'country':
                 // Semelhante ao nome
-                pattern = RegExp(`/^(${capitalName}+((-${capitalName}+)+)? ?)+$/`);
+                pattern = RegExp(`^(${capitalName}+((-${capitalName}+)+)? ?)+$`);
                 break;
             case 'cpf':
                 // Permite CPF espaçado com . e - OU apenas numéricos
@@ -42,11 +43,13 @@ class fieldChecker {
             case 'desc':
                 // A descricao deve ser breve e objetiva, nao pode utilizar espaços duplos 
                 pattern = /([A-ZÀ-Ú\'a-zà-ú\!\?\.",\d]+ ?)+/;
+                break;
             case 'skills':
                 // As skills devem ser separadas por vírgulas e podem ser utilizados espaços e caracteres acentuados
                 pattern = /^([\wÀ-Ú\.à-ú ]+,?[\wÀ-Ú\.à-ú ]+)+$/;
-            default:
-                return false;
+                break;
+            case 'age':
+                pattern = /^\d{2}$/;
         }
         return pattern.test(userInput);
     }
