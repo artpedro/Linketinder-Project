@@ -2,7 +2,7 @@ class fieldChecker {
     constructor() {
 
     }
-    public static checkField(type:'name'|'email'|'test'|'password'|'telephone'|'cep'|'country'|'cpf'|'cnpj'|'desc',userInput:string):boolean {
+    public static checkField(type:'name'|'email'|'test'|'password'|'telephone'|'cep'|'country'|'cpf'|'cnpj'|'desc'|'skills',userInput:string):boolean {
         // Expressão regular que sempre retorna falso
         let pattern:RegExp = /[^\S\s]+/
         let capitalName:RegExp = RegExp('[A-ZÀ-Ú\'][a-zà-ú\']')
@@ -42,6 +42,9 @@ class fieldChecker {
             case 'desc':
                 // A descricao deve ser breve e objetiva, nao pode utilizar espaços duplos 
                 pattern = /[A-ZÀ-Ú\'a-zà-ú\!\?\.",\d]+ ?)+`/
+            case 'skills':
+                // As skills devem ser separadas por vírgulas e podem ser utilizados espaços e caracteres acentuados
+                pattern = /^([\wÀ-Ú\.à-ú ]+,?[\wÀ-Ú\.à-ú ]+)+$/
             default:
                 return false
         }
