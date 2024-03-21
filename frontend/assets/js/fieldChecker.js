@@ -50,6 +50,9 @@ class fieldChecker {
                 break;
             case 'age':
                 pattern = /^\d{2}$/;
+                break;
+            case 'title':
+                pattern = /^[A-ZÀ-Ú][a-zà-ú\\'!,\? ]+$/;
         }
         return pattern.test(userInput);
     }

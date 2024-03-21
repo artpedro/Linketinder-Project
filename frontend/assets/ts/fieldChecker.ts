@@ -2,7 +2,7 @@ class fieldChecker {
     constructor() {
 
     }
-    public static checkField(type:'name'|'email'|'test'|'password'|'telephone'|'cep'|'country'|'cpf'|'cnpj'|'desc'|'skills'|'age',userInput:string):boolean {
+    public static checkField(type:'name'|'title'|'email'|'test'|'password'|'telephone'|'cep'|'country'|'cpf'|'cnpj'|'desc'|'skills'|'age',userInput:string):boolean {
         // Expressão regular que sempre retorna falso
         let pattern:RegExp = /[^\S\s]+/
         let capitalName:string = `[A-ZÀ-Ú\\'][a-zà-ú\\']`
@@ -51,6 +51,9 @@ class fieldChecker {
                 break
             case 'age':
                 pattern = /^\d{2}$/
+                break
+            case 'title':
+                pattern = /^[A-ZÀ-Ú][a-zà-ú\\'!,\? ]+$/
         }
         return pattern.test(userInput)
     }

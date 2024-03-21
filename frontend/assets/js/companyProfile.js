@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
         count++;
     });
     (_h = document.getElementById('new-job')) === null || _h === void 0 ? void 0 : _h.addEventListener('submit', function (event) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d;
         event.preventDefault();
         let formData = new FormData(this);
         let formDataMap = new Map();
@@ -78,14 +78,31 @@ document.addEventListener('DOMContentLoaded', function () {
             formDataMap.set(key, value);
         }
         const title = (_a = formDataMap.get('title')) !== null && _a !== void 0 ? _a : '';
+        const validTitle = fieldChecker.checkField('title', title);
+        console.log(validTitle);
         const country = (_b = formDataMap.get('country')) !== null && _b !== void 0 ? _b : '';
+        const validCountry = fieldChecker.checkField('country', country);
+        console.log(validCountry);
         const desc = (_c = formDataMap.get('description')) !== null && _c !== void 0 ? _c : '';
-        const skills = (_e = (_d = formDataMap.get('skills')) === null || _d === void 0 ? void 0 : _d.split(',')) !== null && _e !== void 0 ? _e : [''];
-        console.log(formDataMap);
-        console.log('company obj', companyObject);
-        const newJobCreated = companyObject.createNewJob(title, desc, skills, country);
-        console.log(newJobCreated);
-        handler.addJobToLog(newJobCreated);
+        const validDesc = fieldChecker.checkField('desc', desc);
+        console.log(validDesc);
+        const skills = (_d = formDataMap.get('skills')) !== null && _d !== void 0 ? _d : '';
+        const validSKills = fieldChecker.checkField('skills', skills);
+        console.log(validSKills);
+        let errorBlock = document.getElementById('error-job');
+        if (validTitle && validCountry && validDesc && validSKills) {
+            console.log(formDataMap);
+            console.log('company obj', companyObject);
+            const newJobCreated = companyObject.createNewJob(title, desc, skills.split(','), country);
+            console.log(newJobCreated);
+            handler.addJobToLog(newJobCreated);
+            let addBlock = document.getElementById('add-job');
+            addBlock.classList.remove('show');
+            errorBlock.style.display = 'none';
+        }
+        else {
+            errorBlock.style.display = 'block';
+        }
     });
     // Extract the labels (programming languages) and data (counts) from the Map
     const labels = Array.from(countMatchesSkills.keys());

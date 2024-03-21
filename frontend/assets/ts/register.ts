@@ -72,7 +72,6 @@ document.getElementById('new-user')?.addEventListener('submit', function (this: 
     } else {
         let errorElem:HTMLElement = document.getElementById("error") as HTMLElement
         let errorPossibilities = [validName, validDesc, validEmail, validCountry, validCep, validCpf_cnpj, validPassword, validSkills]
-        console.log(errorPossibilities)
         errorElem.style.display = 'inline'
         errorElem.innerHTML = `Invalid ${whichInvalid(errorPossibilities)}`
     }

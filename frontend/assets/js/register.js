@@ -73,7 +73,6 @@ function whichInvalid(checks) {
     else {
         let errorElem = document.getElementById("error");
         let errorPossibilities = [validName, validDesc, validEmail, validCountry, validCep, validCpf_cnpj, validPassword, validSkills];
-        console.log(errorPossibilities);
         errorElem.style.display = 'inline';
         errorElem.innerHTML = `Invalid ${whichInvalid(errorPossibilities)}`;
     }

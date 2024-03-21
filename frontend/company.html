@@ -92,6 +92,7 @@
                       <label for="status" class="form-label">Skills required (separated by comma)</label>
                       <input type="text" class="form-control" name="skills" placeholder="Python, Java, React..." required>
                   </div>
+                  <span id="error-job" style="display: none">Invalid job (check the formatting)</span><br>
                   <button class="save btn save-new" type="submit" data-toggle="collapse"
                       data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                       <strong>Save</strong>
@@ -105,6 +106,7 @@
    
     <script src="./assets/js/_user.js"></script>
     <script src="./assets/js/job.js"></script>
+    <script src="./assets/js/fieldChecker.js"></script>
     <script src="./assets/js/logHandler.js"></script>
     <script src="./assets/js/candidate.js"></script>
     <script src="./assets/js/company.js"></script>

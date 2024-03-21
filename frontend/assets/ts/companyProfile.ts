@@ -87,15 +87,32 @@ document.addEventListener('DOMContentLoaded', function () {
             formDataMap.set(key,value as string)
         }
         const title:string = formDataMap.get('title') ?? ''
-        const country:string = formDataMap.get('country')  ?? ''
-        const desc:string = formDataMap.get('description') ?? ''
-        const skills:string[] = formDataMap.get('skills')?.split(',') ?? ['']
+        const validTitle:boolean = fieldChecker.checkField('title',title)
+        console.log(validTitle);
         
-        console.log(formDataMap)
-        console.log('company obj',companyObject)
-        const newJobCreated:Job = companyObject.createNewJob(title,desc,skills,country)
-        console.log(newJobCreated)
-        handler.addJobToLog(newJobCreated)
+        const country:string = formDataMap.get('country')  ?? ''
+        const validCountry:boolean = fieldChecker.checkField('country',country)
+        console.log(validCountry);
+        const desc:string = formDataMap.get('description') ?? ''
+        const validDesc:boolean = fieldChecker.checkField('desc',desc)
+        console.log(validDesc);
+        const skills:string = formDataMap.get('skills') ?? ''
+        const validSKills:boolean = fieldChecker.checkField('skills',skills)
+        console.log(validSKills);
+        let errorBlock:HTMLElement = document.getElementById('error-job') as HTMLElement
+            
+        if (validTitle && validCountry && validDesc && validSKills) {
+            console.log(formDataMap)
+            console.log('company obj',companyObject)
+            const newJobCreated:Job = companyObject.createNewJob(title,desc,skills.split(','),country)
+            console.log(newJobCreated)
+            handler.addJobToLog(newJobCreated)
+            let addBlock:HTMLElement = document.getElementById('add-job') as HTMLElement
+            addBlock.classList.remove('show')
+            errorBlock.style.display = 'none'
+        } else {
+            errorBlock.style.display = 'block'
+        }
     })
 
     // Extract the labels (programming languages) and data (counts) from the Map
